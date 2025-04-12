@@ -1,0 +1,27 @@
+body{
+}
+
+.mainGrid{
+    display: grid;
+    grid-template-columns: 1fr 300px ;
+    gap: 1em;
+    padding: 1em;
+    flex: 1;
+}
+
+.listContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.filterContainer{
+    background-color: gray;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.navContainer {
+    background-color: pink;
+    width: 100%;
+    height: 60px;
+}

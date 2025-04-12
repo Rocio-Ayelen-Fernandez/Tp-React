@@ -1,0 +1,6 @@
+Botones
+    Crear Pelicula/serie (modal)
+        Abre formulario/lista
+    Filtrar
+        Desplegable 
+Titulos

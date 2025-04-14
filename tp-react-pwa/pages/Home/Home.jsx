@@ -2,24 +2,11 @@ import styles from "./Home.module.css";
 import List from "../../Components/List/List";
 import Nav from "../../Components/Nav/Nav";
 import Button from "../../Components/Button/Button";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import Modal from "../../Components/Modal/Modal";
 
 const Home = () => {
-  /*
 
-useEffect(() => {
-  const storedMovies = JSON.parse(localStorage.getItem("peliculas")) || [];
-
-  const noVistas = storedMovies.filter(movie => movie.seen === "notSeen");
-  const vistas = storedMovies.filter(movie => movie.seen === "Seen");
-
-  setListaPorVer(noVistas);
-  setListaVistas(vistas);
-}, []);
-
-
-   */
   //Modal
   const [showModal, setShowModal] = useState(false);
   // const [modalContent, setModalContent] = useState(null)
@@ -48,10 +35,15 @@ useEffect(() => {
     {name: "Agregar", action: "agregar"},
   ];
 
-  UseEffect(){  
+  useEffect(() => { 
+    const peliculasVistas = JSON.parse(localStorage.getItem('listaVistas') ) || []
+    const peliculasPorVer = JSON.parse(localStorage.getItem('listaPorVer') ) || []
     
+    setListaPorVer(peliculasPorVer)
+    setListaVistas(peliculasVistas)
+  
+  }, [])
 
-  }
 
   return (
     <div className={styles.mainContainer}>
@@ -77,17 +69,19 @@ useEffect(() => {
               <Button
                 name={"Agregar"}
                 onclick={() => {
-                    if(!isSeen){   
-                    setListaPorVer([...listaPorVer, value]);
-                    localStorage.setItem('listaPorVer', JSON.stringify(listaPorVer) || [])
-                }else{
-                    setListaVistas([...listaVistas, value]);
-                    localStorage.setItem('listasVistas', JSON.stringify(listaVistas)|| [])
-                }
-               
-                  setValue("");
-                  setShowModal(false);
-                }}
+                    if (!isSeen) {
+                        const nuevaListaPorVer = [...listaPorVer, value]; // Crea una nueva lista con el valor actualizado
+                        setListaPorVer(nuevaListaPorVer); // Actualiza el estado
+                        localStorage.setItem('listaPorVer', JSON.stringify(nuevaListaPorVer)); // Guarda la nueva lista en localStorage
+                      } else {
+                        const nuevaListaVistas = [...listaVistas, value]; // Crea una nueva lista con el valor actualizado
+                        setListaVistas(nuevaListaVistas); // Actualiza el estado
+                        localStorage.setItem('listaVistas', JSON.stringify(nuevaListaVistas)); // Guarda la nueva lista en localStorage
+                      }
+                  
+                      setValue(""); // Limpia el input
+                      setShowModal(false); // Cierra el modal
+                    }}
               />
             </div>
           )}
@@ -106,10 +100,10 @@ useEffect(() => {
       <div className={styles.mainGrid}>
         {/* Aca van las listas */}
         <div className={styles.listContainer}>
-          <List title={"Sin ver"} array={listaPorVer} />
-          <List title={"Por ver"} array={listaVistas} />
+          <List title={"Por ver"} array={listaPorVer} />
+          <List title={"Vista"} array={listaVistas} />
         </div>
-        <div className={styles.filterContainer}></div>
+        {/* <div className={styles.filterContainer}></div> */}
       </div>
     </div>
   );

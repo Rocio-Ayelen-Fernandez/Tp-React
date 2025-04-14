@@ -1,14 +1,12 @@
 import Button from '../Button/Button'
 import styles from './Card.module.css'
 
-// const buttons = (arrayButtons) =>{
-//     arrayButtons.map((name)=>{
-//     return <Button name={name}/>
-// })}
+
+//Array de botones
+let buttons=["Ver", "Estado", "E", "E"];
 
 const Card = ({title}) => {
-    //Array de botones
-    let buttons=["Ver", "Estado", "E", "E"];
+    
 
     return(
         <article className={styles.card}>

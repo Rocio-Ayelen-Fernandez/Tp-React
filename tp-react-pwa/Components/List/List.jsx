@@ -9,9 +9,11 @@ const List = ({title, array}) =>{
         <section className={styles.list}>
             <h2>{title}</h2>
             <div>
-                {array.map((movie, index) => (
-                     <Card title={movie} key={index}/>
-                ))}
+                {array ?
+                array.map((movie, index) => (
+                    
+                    <Card title={movie} key={index}/>
+                )) :  <p>No hay peliculas para mostrrar</p>}
             </div>
         </section>
     )

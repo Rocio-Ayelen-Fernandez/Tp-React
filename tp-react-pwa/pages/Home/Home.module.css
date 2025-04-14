@@ -1,5 +1,8 @@
 body{
 }
+.mainContainer{
+    position: relative;
+}
 
 .mainGrid{
     display: grid;

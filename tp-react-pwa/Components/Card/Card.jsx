@@ -18,7 +18,7 @@ const Card = ({title}) => {
             <div className={styles.buttonsContainer}>
                 {/* Renderiza los botones del array */}
                 {buttons.map((buttonName, index) => (
-                <Button key={index} name={buttonName} calssName={styles.button} />
+                <Button key={index} name={buttonName} className={styles.button} />
             ))}
             </div> 
                         

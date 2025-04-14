@@ -1,4 +1,5 @@
 import Button from '../Button/Button'
+import Styles from "./Modal.module.css"
 
 const Modal = ({isOpen, onClose, children}) =>{
     
@@ -7,12 +8,17 @@ const Modal = ({isOpen, onClose, children}) =>{
         valReturn = null
     }else{
         valReturn = (
-            <div>
-                <Button name={"Cerrar"} onclick={() =>{
-                    console.log("cerrado")
-                    onClose()
-                }}/>
-                {children}
+            <div className={Styles.modalContainer}>
+                <div className={Styles.buttonClose}>
+                    <Button name={"Cerrar"} onclick={() =>{
+                        console.log("cerrado")
+                        onClose()
+                    }}/>
+                </div>
+                
+                <div className={Styles.modalContent}>
+                    {children}  
+                </div>
             </div>
         )
         

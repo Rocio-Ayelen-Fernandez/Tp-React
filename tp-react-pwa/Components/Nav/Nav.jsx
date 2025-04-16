@@ -2,15 +2,23 @@ import Modal from '../Modal/Modal'
 import Button from '../Button/Button'
 import { useState } from 'react'
 
-const Nav = ()=>{
+const Nav = ({actions, buttons})=>{
 
-    const [showModal, setShowModal] = useState(false)
+    
+
+    //Modal
+    // const [showModal, setShowModal] = useState(false)
 
     return(
         <div>
-            <button onClick={() => setShowModal(true)}>Agregar pelicula</button>
+
+            {buttons.map(({name, action}) => (
+                <Button key={name} name={name} onclick={actions[action]} />
+            ))}
+
+            {/* <button onClick={() => setShowModal(true)}>Agregar pelicula</button> */}
             
-            <Modal isOpen={showModal} onClose={() => setShowModal(false)}/>
+            {/* <Modal isOpen={showModal} onClose={() => setShowModal(false)}/> */}
         </div>
     )
 }

@@ -1,14 +1,12 @@
 import Button from '../Button/Button'
 import styles from './Card.module.css'
 
-// const buttons = (arrayButtons) =>{
-//     arrayButtons.map((name)=>{
-//     return <Button name={name}/>
-// })}
+
+//Array de botones
+let buttons=["Ver", "Estado", "E", "E"];
 
 const Card = ({title}) => {
-    //Array de botones
-    let buttons=["Ver", "Estado", "E", "E"];
+    
 
     return(
         <article className={styles.card}>
@@ -18,7 +16,7 @@ const Card = ({title}) => {
             <div className={styles.buttonsContainer}>
                 {/* Renderiza los botones del array */}
                 {buttons.map((buttonName, index) => (
-                <Button key={index} name={buttonName} calssName={styles.button} />
+                <Button key={index} name={buttonName} className={styles.button} />
             ))}
             </div> 
                         

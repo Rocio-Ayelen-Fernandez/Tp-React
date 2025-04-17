@@ -47,24 +47,31 @@ const [search, setSearch] = useState('')
   // }
   // searchMovie()
 
-  useEffect (() =>{
+  // useEffect (() =>{
     
-    //Solo si el search no esta vacio
-    if(search.trim() !== ""){
-      const busquedaEnVer = listaPorVer.filter((item) =>
+  //   //Solo si el search no esta vacio
+  //   if(search.trim() !== ""){
+  //     const busquedaEnVer = listaPorVer.filter((item) =>
 
-        item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-      )
+  //       item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+  //     )
 
-        if (busquedaEnVer.length === 0) {
-          console.log("No se encontraron coincidencias");
-        }else{
-          console.log("Peliculas encontradas: ", busquedaEnVer);
-        }
+  //       if (busquedaEnVer.length === 0) {
+  //         console.log("No se encontraron coincidencias");
+  //       }else{
+  //         console.log("Peliculas encontradas: ", busquedaEnVer);
+  //       }
        
-    }
+  //   }
 
-  },[search,listaPorVer])
+  // },[search,listaPorVer])
+
+  // <List
+  //         title="Por ver"
+  //         array={listaPorVer.filter((item) =>
+  //           item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+  //         )}
+  //       />
 
 
   const actions = {
@@ -140,7 +147,16 @@ const [search, setSearch] = useState('')
 
       <div className={styles.mainGrid}>
         <div className={styles.listContainer}>
-          <List title="Por ver" array={listaPorVer} />
+          {/* <List title="Por ver" array={listaPorVer} /> */}
+
+
+
+          <List
+          title="Por ver"
+          array={listaPorVer.filter((item) =>
+            item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+          )}
+        />
           <List title="Vista" array={listaVistas} />
         </div>
       </div>

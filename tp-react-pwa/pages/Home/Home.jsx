@@ -35,21 +35,47 @@ const [search, setSearch] = useState('')
     setShowModal(true);
   };
 
-  const searchMovie = () =>{
+  // const searchMovie = () =>{
       
       
-      const busquedaEnVer = listaPorVer.filter(item => item.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
-      if (busquedaEnVer.length === 0) {
-          console.log("No se encontraron coincidencias");
-      }else{
-        
-      }
-  }
-  searchMovie()
+  //     const busquedaEnVer = listaPorVer.filter(item => item.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+  //     if (busquedaEnVer.length === 0) {
+  //         console.log("No se encontraron coincidencias");
+  //     }else{
+  //       console.log("Peliculas encontradas: ", busquedaEnVer);
+  //     }
+  // }
+  // searchMovie()
 
-  const buttons = [
+  useEffect (() =>{
+    
+    //Solo si el search no esta vacio
+    if(search.trim() !== ""){
+      const busquedaEnVer = listaPorVer.filter((item) =>
+
+        item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+      )
+
+        if (busquedaEnVer.length === 0) {
+          console.log("No se encontraron coincidencias");
+        }else{
+          console.log("Peliculas encontradas: ", busquedaEnVer);
+        }
+       
+    }
+
+  },[search,listaPorVer])
+
+
+  const actions = {
+    //Listar Funciones aca
+    agregar: Agregar,
+    search: setSearch,
+  };
+  const navItem = [
     //Agregar Botones para el nav aca
-    {name: "Agregar", action: "agregar"},
+    {name: "Agregar", action: "agregar", type: "Button"},
+    {name: "Buscar", action: "search", type: "Search"},
   ];
 
   // Cargar datos de localStorage
@@ -107,9 +133,9 @@ const [search, setSearch] = useState('')
       )}
 
       <div className={styles.navContainer}>
-        <Nav action={Agregar} buttons={buttons} />
+        <Nav actions={actions} items={navItem} />
 
-        <Search setSearch={setSearch}/>
+        {/* <Search setSearch={setSearch}/> */}
       </div>
 
       <div className={styles.mainGrid}>

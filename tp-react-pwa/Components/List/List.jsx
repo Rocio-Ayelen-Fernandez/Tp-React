@@ -2,6 +2,7 @@ import Card from '../Card/Card'
 import styles from './List.module.css'
 
 
+
 const List = ({title, array}) =>{
 
     
@@ -9,11 +10,11 @@ const List = ({title, array}) =>{
         <section className={styles.list}>
             <h2>{title}</h2>
             <div>
-                {array ?
-                array.map((movie, index) => (
+                {array && array.length>0?
+                array.map((media, index) => (
                     
-                    <Card title={movie} key={index}/>
-                )) :  <p>No hay peliculas para mostrrar</p>}
+                    <Card mediaItem={media} key={index}/>
+                )) :  (<p>No hay peliculas para mostrar</p>)}
             </div>
         </section>
     )

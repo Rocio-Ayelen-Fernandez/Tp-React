@@ -1,24 +1,43 @@
-import Modal from '../Modal/Modal'
+import Styles from './Nav.module.css'
 import Button from '../Button/Button'
-import { useState } from 'react'
+import Search from "../../Components/Search/Search"
 
-const Nav = ({actions, buttons})=>{
 
-    
+const Nav = ({actions, items})=>{
+
+    const componentMap = {
+        Button: Button,
+        Search: Search,
+    }
+    const propsMap = {
+        Button: (action) => ({ onclick: actions[action] }),
+        Search: (action) => ({ setSearch: actions[action] }), 
+      };
 
     //Modal
     // const [showModal, setShowModal] = useState(false)
 
     return(
-        <div>
+        <div className={Styles.navContainer}>
 
-            {buttons.map(({name, action}) => (
-                <Button key={name} name={name} onclick={actions[action]} />
-            ))}
+            {items.map(({name,action,type}) => {
 
-            {/* <button onClick={() => setShowModal(true)}>Agregar pelicula</button> */}
-            
-            {/* <Modal isOpen={showModal} onClose={() => setShowModal(false)}/> */}
+                const Component = componentMap[type]
+                if(!Component){
+
+                    console.error(`El tipo "${type}" no está definido en el mapeo de componentes.`);
+                    // return null;
+                }
+
+                const dynamicProps = propsMap[type](action)
+
+                return(
+                    <Component key={name} name={name} {...dynamicProps}/>
+                )
+                
+            })}
+
+          
         </div>
     )
 }

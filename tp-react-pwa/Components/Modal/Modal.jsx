@@ -3,28 +3,16 @@ import Styles from "./Modal.module.css"
 
 const Modal = ({isOpen, onClose, children}) =>{
     
-    let valReturn
-    if (!isOpen){
-        valReturn = null
-    }else{
-        valReturn = (
-            <div className={Styles.modalContainer}>
-                <div className={Styles.buttonClose}>
-                    <Button name={"Cerrar"} onclick={() =>{
-                        console.log("cerrado")
-                        onClose()
-                    }}/>
-                </div>
-                
-                <div className={Styles.modalContent}>
-                    {children}  
-                </div>
-            </div>
-        )
-        
-    }   
+        if (!isOpen) return null;
 
-    return valReturn
+return (
+    <div className={Styles.modalContainer}>
+      <div className={Styles.buttonClose}>
+        <Button name="Cerrar" onclick={onClose} />
+      </div>
+      <div className={Styles.modalContent}>{children}</div>
+    </div>
+  );
 }
 
 export default Modal

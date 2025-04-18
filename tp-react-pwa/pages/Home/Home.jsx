@@ -2,110 +2,196 @@ import styles from "./Home.module.css";
 import List from "../../Components/List/List";
 import Nav from "../../Components/Nav/Nav";
 import Button from "../../Components/Button/Button";
-import {useState, useEffect} from "react";
 import Modal from "../../Components/Modal/Modal";
+import ModalAddMovie from "../../Components/Modal/ModalAddMovie";
+import Search from "../../Components/Search/Search";
+import { useState, useEffect } from "react";
+
+
 
 const Home = () => {
-
-  //Modal
+  // Modal
   const [showModal, setShowModal] = useState(false);
-  // const [modalContent, setModalContent] = useState(null)
   const [modalType, setModalType] = useState(null);
 
-  //Listas
-  const [listaPorVer, setListaPorVer] = useState([["serie1"], ["serie2"]]);
-  const [listaVistas, setListaVistas] = useState([["serie3"], ["serie4"]]);
+  // Input Add Movie
+  const [mediaItem, setMediaItem] = useState({
+    title: "",
+    director: "",
+    year: "",
+    genre: "",
+    rating: "",
+    type: "",
+    isSeen: false,
+    img: "",
+  });
 
-  //input
-  const [value, setValue] = useState("");
-  const [isSeen, setIsSeen] = useState(false);
 
-  //Funciones
-  const addMovie = () => {
+// Input SearchMovie
+const [search, setSearch] = useState('')
+//const [searchParam, setSearchParam] = useState('')
+  // Listas
+  const [listaPorVer, setListaPorVer] = useState([]);
+  const [listaVistas, setListaVistas] = useState([]);
+
+  // Modal content map
+  const modalContentMap = {
+    addMovie: ModalAddMovie,
+    // agregar más tipos acá
+  };
+
+  // Abrir modal
+  const Agregar = () => {
     setModalType("addMovie");
     setShowModal(true);
   };
 
+
+  const getListaPorVer = () => {
+
+    let filteredList = listaPorVer
+
+    if(search.trim() !== ""){
+      filteredList = listaPorVer.filter((item) =>
+        item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+      )
+    }
+
+
+    return filteredList
+  }
+
+  // const searchMovie = () =>{
+      
+      
+  //     const busquedaEnVer = listaPorVer.filter(item => item.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+  //     if (busquedaEnVer.length === 0) {
+  //         console.log("No se encontraron coincidencias");
+  //     }else{
+  //       console.log("Peliculas encontradas: ", busquedaEnVer);
+  //     }
+  // }
+  // searchMovie()
+
+  // useEffect (() =>{
+    
+  //   //Solo si el search no esta vacio
+  //   if(search.trim() !== ""){
+  //     const busquedaEnVer = listaPorVer.filter((item) =>
+
+  //       item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+  //     )
+
+  //       if (busquedaEnVer.length === 0) {
+  //         console.log("No se encontraron coincidencias");
+  //       }else{
+  //         console.log("Peliculas encontradas: ", busquedaEnVer);
+  //       }
+       
+  //   }
+
+  // },[search,listaPorVer])
+
+  // <List
+  //         title="Por ver"
+  //         array={listaPorVer.filter((item) =>
+  //           item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+  //         )}
+  //       />
+
+
   const actions = {
     //Listar Funciones aca
-    agregar: addMovie,
+    agregar: Agregar,
+    search: setSearch,
   };
-  const buttons = [
+  const navItem = [
     //Agregar Botones para el nav aca
-    {name: "Agregar", action: "agregar"},
+    {name: "Agregar", action: "agregar", type: "Button"},
+    {name: "Buscar", action: "search", type: "Search"},
   ];
 
-  useEffect(() => { 
-    const peliculasVistas = JSON.parse(localStorage.getItem('listaVistas') ) || []
-    const peliculasPorVer = JSON.parse(localStorage.getItem('listaPorVer') ) || []
-    
-    setListaPorVer(peliculasPorVer)
-    setListaVistas(peliculasVistas)
-  
-  }, [])
+  // Cargar datos de localStorage
+  useEffect(() => {
+    const peliculasVistas = JSON.parse(localStorage.getItem("listaVistas")) || [];
+    const peliculasPorVer = JSON.parse(localStorage.getItem("listaPorVer")) || [];
+    setListaVistas(peliculasVistas);
+    setListaPorVer(peliculasPorVer);
+  }, []);
 
+  // Guardar película
+  const handleSubmit = () => {
+    if (!mediaItem.title.trim()) return;
+
+
+    if (!mediaItem.isSeen) {
+      const nuevaListaPorVer = [...listaPorVer, mediaItem];
+      setListaPorVer(nuevaListaPorVer);
+      localStorage.setItem("listaPorVer", JSON.stringify(nuevaListaPorVer));
+    } else {
+      const nuevaListaVistas = [...listaVistas, mediaItem];
+      setListaVistas(nuevaListaVistas);
+      localStorage.setItem("listaVistas", JSON.stringify(nuevaListaVistas));
+    }
+
+    setMediaItem({
+      title: "",
+      director: "",
+      year: "",
+      genre: "",
+      rating: "",
+      type: "",
+      isSeen: false,
+    });
+    setShowModal(false);
+  };
+
+  // Render contenido del modal
+  const renderModalContent = () => {
+    const ModalContent = modalContentMap[modalType];
+    const commonProps = {}
+    if (modalType === "addMovie") {
+      return (
+        <ModalContent
+          {...commonProps}
+          mediaItem={mediaItem}
+          setMediaItem={setMediaItem}
+          onSubmit={handleSubmit}
+        />
+      );
+  };
+  return <ModalContent {...commonProps} />;
+}
 
   return (
     <div className={styles.mainContainer}>
       {showModal && (
         <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-          {modalType === "addMovie" && (
-            <div>
-              <h3>Agregar Pelicula</h3>
-
-              <input
-                type="text"
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-              />
-               <label>
-            ¿Vista?
-            <input
-          type="checkbox"
-          checked={isSeen}
-          onChange={() => setIsSeen(!isSeen)} 
-            />
-            </label>
-              <Button
-                name={"Agregar"}
-                onclick={() => {
-                    if (!isSeen) {
-                        const nuevaListaPorVer = [...listaPorVer, value]; // Crea una nueva lista con el valor actualizado
-                        setListaPorVer(nuevaListaPorVer); // Actualiza el estado
-                        localStorage.setItem('listaPorVer', JSON.stringify(nuevaListaPorVer)); // Guarda la nueva lista en localStorage
-                      } else {
-                        const nuevaListaVistas = [...listaVistas, value]; // Crea una nueva lista con el valor actualizado
-                        setListaVistas(nuevaListaVistas); // Actualiza el estado
-                        localStorage.setItem('listaVistas', JSON.stringify(nuevaListaVistas)); // Guarda la nueva lista en localStorage
-                      }
-                  
-                      setValue(""); // Limpia el input
-                      setShowModal(false); // Cierra el modal
-                    }}
-              />
-            </div>
-          )}
-          {modalType === "otraAccion" && (
-            <div>
-              <p>Otro contenido diferente</p>
-            </div>
-          )}
+          {renderModalContent()}
         </Modal>
       )}
 
       <div className={styles.navContainer}>
-        {/* Aca va el nav */}
-        <Nav actions={actions} buttons={buttons} />
+        <Nav actions={actions} items={navItem} />
+
+        {/* <Search setSearch={setSearch}/> */}
       </div>
+
       <div className={styles.mainGrid}>
-        {/* Aca van las listas */}
         <div className={styles.listContainer}>
-          <List title={"Por ver"} array={listaPorVer} />
-          <List title={"Vista"} array={listaVistas} />
+          {/* <List title="Por ver" array={listaPorVer} /> */}
+
+    
+
+          <List
+          title="Por ver"
+          array={getListaPorVer()}
+        />
+          <List title="Vista" array={listaVistas} />
         </div>
-        {/* <div className={styles.filterContainer}></div> */}
       </div>
     </div>
   );
 };
+
 export default Home;

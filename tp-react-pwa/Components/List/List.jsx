@@ -11,9 +11,9 @@ const List = ({title, array}) =>{
             <h2>{title}</h2>
             <div>
                 {array && array.length>0?
-                array.map((movie, index) => (
+                array.map((media, index) => (
                     
-                    <Card title={movie} key={index}/>
+                    <Card mediaItem={media} key={index}/>
                 )) :  (<p>No hay peliculas para mostrar</p>)}
             </div>
         </section>

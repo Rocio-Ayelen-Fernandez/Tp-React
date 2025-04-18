@@ -15,12 +15,17 @@ const Home = () => {
   const [modalType, setModalType] = useState(null);
 
   // Input Add Movie
-  const [mediaItem, setMediaItem] = useState({nombre: "",
-    año: "",
+  const [mediaItem, setMediaItem] = useState({
+    title: "",
+    director: "",
+    year: "",
+    genre: "",
     rating: "",
-    genero: "",
-    isSeen: false,});
-  const [isSeen, setIsSeen] = useState(false);
+    type: "",
+    isSeen: false,
+    img: "",
+  });
+
 
 // Input SearchMovie
 const [search, setSearch] = useState('')
@@ -40,6 +45,21 @@ const [search, setSearch] = useState('')
     setModalType("addMovie");
     setShowModal(true);
   };
+
+
+  const getListaPorVer = () => {
+
+    let filteredList = listaPorVer
+
+    if(search.trim() !== ""){
+      filteredList = listaPorVer.filter((item) =>
+        item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+      )
+    }
+
+
+    return filteredList
+  }
 
   // const searchMovie = () =>{
       
@@ -101,22 +121,10 @@ const [search, setSearch] = useState('')
 
   // Guardar película
   const handleSubmit = () => {
-    if (!mediaItem.nombre.trim()) return;
+    if (!mediaItem.title.trim()) return;
 
-/*
-    /*
-    obj ={}
-     * if(mediaItem.tittle !== '' && mediaItem.genre !=='' && ){
-     * obj.tittle =  titulo: mediaItem.title,
-      obj.genre = mediaItem.genre
-}
-     * }else{
-    error
-    }
-//  const [mediaItem, setMediaItem] = useState({})
-   
-     */
-    if (!isSeen) {
+
+    if (!mediaItem.isSeen) {
       const nuevaListaPorVer = [...listaPorVer, mediaItem];
       setListaPorVer(nuevaListaPorVer);
       localStorage.setItem("listaPorVer", JSON.stringify(nuevaListaPorVer));
@@ -126,8 +134,15 @@ const [search, setSearch] = useState('')
       localStorage.setItem("listaVistas", JSON.stringify(nuevaListaVistas));
     }
 
-    setMediaItem("");
-    setIsSeen(false);
+    setMediaItem({
+      title: "",
+      director: "",
+      year: "",
+      genre: "",
+      rating: "",
+      type: "",
+      isSeen: false,
+    });
     setShowModal(false);
   };
 
@@ -141,8 +156,6 @@ const [search, setSearch] = useState('')
           {...commonProps}
           mediaItem={mediaItem}
           setMediaItem={setMediaItem}
-          isSeen={isSeen}
-          setIsSeen={setIsSeen}
           onSubmit={handleSubmit}
         />
       );
@@ -172,9 +185,7 @@ const [search, setSearch] = useState('')
 
           <List
           title="Por ver"
-          array={listaPorVer.filter((item) =>
-            item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-          )}
+          array={getListaPorVer()}
         />
           <List title="Vista" array={listaVistas} />
         </div>

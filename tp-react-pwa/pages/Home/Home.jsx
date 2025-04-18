@@ -7,13 +7,19 @@ import ModalAddMovie from "../../Components/Modal/ModalAddMovie";
 import Search from "../../Components/Search/Search";
 import { useState, useEffect } from "react";
 
+
+
 const Home = () => {
   // Modal
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState(null);
 
   // Input Add Movie
-  const [mediaItem, setMediaItem] = useState("");
+  const [mediaItem, setMediaItem] = useState({nombre: "",
+    año: "",
+    rating: "",
+    genero: "",
+    isSeen: false,});
   const [isSeen, setIsSeen] = useState(false);
 
 // Input SearchMovie
@@ -95,8 +101,21 @@ const [search, setSearch] = useState('')
 
   // Guardar película
   const handleSubmit = () => {
-    if (!mediaItem.trim()) return;
+    if (!mediaItem.nombre.trim()) return;
 
+/*
+    /*
+    obj ={}
+     * if(mediaItem.tittle !== '' && mediaItem.genre !=='' && ){
+     * obj.tittle =  titulo: mediaItem.title,
+      obj.genre = mediaItem.genre
+}
+     * }else{
+    error
+    }
+//  const [mediaItem, setMediaItem] = useState({})
+   
+     */
     if (!isSeen) {
       const nuevaListaPorVer = [...listaPorVer, mediaItem];
       setListaPorVer(nuevaListaPorVer);
@@ -149,7 +168,7 @@ const [search, setSearch] = useState('')
         <div className={styles.listContainer}>
           {/* <List title="Por ver" array={listaPorVer} /> */}
 
-
+    
 
           <List
           title="Por ver"

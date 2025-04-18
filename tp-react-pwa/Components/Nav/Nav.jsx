@@ -26,9 +26,11 @@ const Nav = ({actions, items})=>{
                 if(!Component){
 
                     console.error(`El tipo "${type}" no está definido en el mapeo de componentes.`);
-                    return null;
+                    // return null;
                 }
-                const dynamicProps = propsMap[type] ? propsMap[type](action): {}
+
+                const dynamicProps = propsMap[type](action)
+
                 return(
                     <Component key={name} name={name} {...dynamicProps}/>
                 )

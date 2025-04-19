@@ -5,16 +5,13 @@ import Button from "../../Components/Button/Button";
 import Modal from "../../Components/Modal/Modal";
 import ModalAddMovie from "../../Components/Modal/ModalAddMovie";
 import Search from "../../Components/Search/Search";
+import Aside from "../../Components/Aside/Aside";
 import { useState, useEffect } from "react";
 
-
-
 const Home = () => {
-  // Modal
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState(null);
 
-  // Input Add Movie
   const [mediaItem, setMediaItem] = useState({
     title: "",
     director: "",
@@ -23,116 +20,77 @@ const Home = () => {
     rating: "",
     type: "",
     isSeen: false,
-    img: "",
+    img: ""
   });
 
+  const [search, setSearch] = useState("");
 
-// Input SearchMovie
-const [search, setSearch] = useState('')
-//const [searchParam, setSearchParam] = useState('')
-  // Listas
   const [listaPorVer, setListaPorVer] = useState([]);
   const [listaVistas, setListaVistas] = useState([]);
 
-  // Modal content map
-  const modalContentMap = {
-    addMovie: ModalAddMovie,
-    // agregar más tipos acá
+  const [filters, setFilters] = useState({ genre: "", type: "" });
+  const [sort, setSort] = useState({ sortBy: "", order: "asc" });
+
+  const handleFilterChange = (newFilters) => {
+    setFilters({ ...filters, ...newFilters });
   };
 
-  // Abrir modal
+  const resetFilters = () => {
+    setFilters({ genre: "", type: "" });
+  };
+
+  const getFilteredList = (list) => {
+    let filtered = list
+      .filter((item) => {
+        const genreMatch = filters.genre ? item.genre === filters.genre : true;
+        const typeMatch = filters.type ? item.type === filters.type : true;
+        return genreMatch && typeMatch;
+      })
+      .filter((item) =>
+        item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || item.director.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+      );
+
+    if (sort.sortBy === "year") {
+      filtered.sort((a, b) =>
+        sort.order === "asc" ? a.year - b.year : b.year - a.year
+      );
+    } else if (sort.sortBy === "rating") {
+      filtered.sort((a, b) =>
+        sort.order === "asc" ? a.rating - b.rating : b.rating - a.rating
+      );
+    }
+
+    return filtered;
+  };
+
+  const handleSortChange = (newSort) => {
+    setSort(newSort);
+  };
+
+  const modalContentMap = {
+    addMovie: ModalAddMovie,
+    editMovie: ModalAddMovie,
+  };
+
   const Agregar = () => {
     setModalType("addMovie");
     setShowModal(true);
   };
 
-
-  const getListaPorVer = () => {
-
-    let filteredList = listaPorVer
-
-    if(search.trim() !== ""){
-      filteredList = listaPorVer.filter((item) =>
-        item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-      )
-    }
-
-
-    return filteredList
-  }
-
-  // const searchMovie = () =>{
-      
-      
-  //     const busquedaEnVer = listaPorVer.filter(item => item.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
-  //     if (busquedaEnVer.length === 0) {
-  //         console.log("No se encontraron coincidencias");
-  //     }else{
-  //       console.log("Peliculas encontradas: ", busquedaEnVer);
-  //     }
-  // }
-  // searchMovie()
-
-  // useEffect (() =>{
-    
-  //   //Solo si el search no esta vacio
-  //   if(search.trim() !== ""){
-  //     const busquedaEnVer = listaPorVer.filter((item) =>
-
-  //       item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-  //     )
-
-  //       if (busquedaEnVer.length === 0) {
-  //         console.log("No se encontraron coincidencias");
-  //       }else{
-  //         console.log("Peliculas encontradas: ", busquedaEnVer);
-  //       }
-       
-  //   }
-
-  // },[search,listaPorVer])
-
-  // <List
-  //         title="Por ver"
-  //         array={listaPorVer.filter((item) =>
-  //           item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-  //         )}
-  //       />
-
-
-  const actions = {
-    //Listar Funciones aca
-    agregar: Agregar,
-    search: setSearch,
-  };
-  const navItem = [
-    //Agregar Botones para el nav aca
-    {name: "Agregar", action: "agregar", type: "Button"},
-    {name: "Buscar", action: "search", type: "Search"},
-  ];
-
-  // Cargar datos de localStorage
-  useEffect(() => {
-    const peliculasVistas = JSON.parse(localStorage.getItem("listaVistas")) || [];
-    const peliculasPorVer = JSON.parse(localStorage.getItem("listaPorVer")) || [];
-    setListaVistas(peliculasVistas);
-    setListaPorVer(peliculasPorVer);
-  }, []);
-
-  // Guardar película
-  const handleSubmit = () => {
+  const handleEditSubmit = () => {
     if (!mediaItem.title.trim()) return;
 
+    const targetList = mediaItem.isSeen ? listaVistas : listaPorVer;
+    const setList = mediaItem.isSeen ? setListaVistas : setListaPorVer;
+    const storageKey = mediaItem.isSeen ? "listaVistas" : "listaPorVer";
 
-    if (!mediaItem.isSeen) {
-      const nuevaListaPorVer = [...listaPorVer, mediaItem];
-      setListaPorVer(nuevaListaPorVer);
-      localStorage.setItem("listaPorVer", JSON.stringify(nuevaListaPorVer));
-    } else {
-      const nuevaListaVistas = [...listaVistas, mediaItem];
-      setListaVistas(nuevaListaVistas);
-      localStorage.setItem("listaVistas", JSON.stringify(nuevaListaVistas));
-    }
+    const updatedList = targetList.map((item) =>
+      item.id === mediaItem.id ? mediaItem : item
+    );
+
+    setList(updatedList);
+    localStorage.setItem(storageKey, JSON.stringify(updatedList));
+    setShowModal(false);
 
     setMediaItem({
       title: "",
@@ -142,26 +100,97 @@ const [search, setSearch] = useState('')
       rating: "",
       type: "",
       isSeen: false,
+      img: "",
+    });
+  };
+
+  const handleEdit = (itemToEdit) => {
+    setMediaItem(itemToEdit);
+    setModalType("editMovie");
+    setShowModal(true);
+  };
+
+  const actions = {
+    agregar: Agregar,
+    search: setSearch,
+  };
+
+  const navItem = [
+    //Agregar Botones para el nav aca
+    {name: "Agregar", action: Agregar, type: "Button"},
+    {name: "Buscar", action: setSearch, type: "Search"},
+  ];
+  const cardButtons = [
+    {name: "Ver", action: "ver", type: "Button"},
+    {name: "Estado", action:"estado", type: "Button"},
+    {name: "Eliminar", action:"eliminar", type: "Button"},
+    {name: "Editar", action: handleEdit, type: "Button"},
+  ]
+
+  useEffect(() => {
+    const peliculasVistas =
+      JSON.parse(localStorage.getItem("listaVistas")) || [];
+    const peliculasPorVer =
+      JSON.parse(localStorage.getItem("listaPorVer")) || [];
+    setListaVistas(peliculasVistas);
+    setListaPorVer(peliculasPorVer);
+  }, []);
+
+  const handleSubmit = () => {
+    const nuevaLista = mediaItem.isSeen
+      ? [...listaVistas, mediaItem]
+      : [...listaPorVer, mediaItem];
+
+    const setList = mediaItem.isSeen ? setListaVistas : setListaPorVer;
+    const storageKey = mediaItem.isSeen ? "listaVistas" : "listaPorVer";
+
+    setList(nuevaLista);
+    localStorage.setItem(storageKey, JSON.stringify(nuevaLista));
+
+    setMediaItem({
+      title: "",
+      director: "",
+      year: "",
+      genre: "",
+      rating: "",
+      type: "",
+      isSeen: false,
+      img: "" 
     });
     setShowModal(false);
   };
 
-  // Render contenido del modal
   const renderModalContent = () => {
     const ModalContent = modalContentMap[modalType];
-    const commonProps = {}
+    const commonProps = {
+      mediaItem,
+      setMediaItem,
+    };
+
     if (modalType === "addMovie") {
       return (
         <ModalContent
           {...commonProps}
-          mediaItem={mediaItem}
-          setMediaItem={setMediaItem}
           onSubmit={handleSubmit}
+          title="Agregar Película o Serie"
+          buttonText="Agregar"
         />
       );
+    }
+
+    if (modalType === "editMovie") {
+      return (
+        <ModalContent
+          {...commonProps}
+          onSubmit={handleEditSubmit}
+          title="Editar Película o Serie"
+          buttonText="Guardar Cambios"
+        />
+      );
+    }
+
+    return <ModalContent {...commonProps} />;
   };
-  return <ModalContent {...commonProps} />;
-}
 
   return (
     <div className={styles.mainContainer}>
@@ -173,21 +202,26 @@ const [search, setSearch] = useState('')
 
       <div className={styles.navContainer}>
         <Nav actions={actions} items={navItem} />
-
-        {/* <Search setSearch={setSearch}/> */}
       </div>
 
       <div className={styles.mainGrid}>
         <div className={styles.listContainer}>
-          {/* <List title="Por ver" array={listaPorVer} /> */}
-
-    
-
           <List
-          title="Por ver"
-          array={getListaPorVer()}
-        />
-          <List title="Vista" array={listaVistas} />
+            title="Por ver"
+            array={getFilteredList(listaPorVer)}
+            button={cardButtons}
+          />
+          <List
+            title="Vista"
+            array={getFilteredList(listaVistas)}
+            button={cardButtons}
+          />
+          <Aside
+            onFilterChange={handleFilterChange}
+            onSortChange={handleSortChange}
+            onEdit={resetFilters}
+            
+          />
         </div>
       </div>
     </div>

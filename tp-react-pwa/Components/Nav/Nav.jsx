@@ -3,15 +3,15 @@ import Button from '../Button/Button'
 import Search from "../../Components/Search/Search"
 
 
-const Nav = ({actions, items})=>{
+const Nav = ({items})=>{
 
     const componentMap = {
         Button: Button,
         Search: Search,
     }
     const propsMap = {
-        Button: (action) => ({ onclick: actions[action] }),
-        Search: (action) => ({ setSearch: actions[action] }), 
+        Button: (action) => ({ onclick: action }), 
+        Search: ( action ) => ({ setSearch: action }),
       };
 
     //Modal

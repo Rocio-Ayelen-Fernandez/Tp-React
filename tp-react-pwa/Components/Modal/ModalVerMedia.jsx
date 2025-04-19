@@ -1,4 +1,4 @@
-import Button from "../Button/Button";
+
 import styles from "./Modal.module.css";
 
 const ModalVerMedia = ({ mediaItem}) => {

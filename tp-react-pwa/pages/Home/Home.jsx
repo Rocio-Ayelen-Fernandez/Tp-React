@@ -180,11 +180,13 @@ const [search, setSearch] = useState('')
           <List
           title="Por ver"
           array={getFilteredList(listaPorVer)} 
+          arrayTotal ={listaPorVer}
           button={cardButtons} 
           buttonAction={actions}
         />
           <List title="Vista" 
           array={getFilteredList(listaVistas)} 
+          arrayTotal ={listaVistas}
           button={cardButtons} 
           buttonAction={actions} />
         </div>

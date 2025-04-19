@@ -4,13 +4,13 @@ import ListCounter from '../Counter/ListCounter/ListCounter'
 
 
 
-const List = ({title, array, button, buttonAction}) =>{
+const List = ({title, array, arrayTotal, button, buttonAction}) =>{
 
     
     return (
         <section className={styles.list}>
             <div className={styles.counter}>
-                <ListCounter list={array}/>
+                <ListCounter list={arrayTotal}/>
             </div>
             <div className={styles.title}>
                 <h2>{title}</h2>

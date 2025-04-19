@@ -3,9 +3,8 @@ import styles from './Card.module.css'
 
 
 //Array de botones
-let buttons=["Ver", "Estado", "E", "E"];
 
-const Card = ({mediaItem}) => {
+const Card = ({mediaItem, button, buttonAction}) => {
     
 
     return(
@@ -18,8 +17,8 @@ const Card = ({mediaItem}) => {
             <p>⭐ {mediaItem.rating}</p>
             <div className={styles.buttonsContainer}>
                 {/* Renderiza los botones del array */}
-                {buttons.map((buttonName, index) => (
-                <Button key={index} name={buttonName} className={styles.button} />
+                {button.map((button, index) => (
+                <Button key={index} name={button.name} onclick={() => buttonAction[button.action](mediaItem)} className={styles.button.name} />
             ))}
             </div> 
                         

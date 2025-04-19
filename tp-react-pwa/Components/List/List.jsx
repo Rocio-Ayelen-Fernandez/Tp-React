@@ -3,7 +3,7 @@ import styles from './List.module.css'
 
 
 
-const List = ({title, array}) =>{
+const List = ({title, array, button, buttonAction}) =>{
 
     
     return (
@@ -13,7 +13,7 @@ const List = ({title, array}) =>{
                 {array && array.length>0?
                 array.map((media, index) => (
                     
-                    <Card mediaItem={media} key={index}/>
+                    <Card mediaItem={media} key={index} button={button} buttonAction={buttonAction}/>
                 )) :  (<p>No hay peliculas para mostrar</p>)}
             </div>
         </section>

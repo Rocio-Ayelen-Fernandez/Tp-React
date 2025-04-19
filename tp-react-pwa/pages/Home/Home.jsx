@@ -4,6 +4,7 @@ import Nav from "../../Components/Nav/Nav";
 import Button from "../../Components/Button/Button";
 import Modal from "../../Components/Modal/Modal";
 import ModalAddMovie from "../../Components/Modal/ModalAddMovie";
+import ModalVerMedia from "../../Components/Modal/ModalVerMedia";
 import Search from "../../Components/Search/Search";
 import { useState, useEffect } from "react";
 
@@ -34,82 +35,86 @@ const [search, setSearch] = useState('')
   const [listaPorVer, setListaPorVer] = useState([]);
   const [listaVistas, setListaVistas] = useState([]);
 
+  
+
+
+  const getFilteredList = (list) => {
+    
+    if (search.trim() === "") {
+      return list; // Si no hay búsqueda, devuelve la lista completa
+    }
+    return list.filter((item) =>
+      item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+    );
+  };
+
+  
+// MODAL
+
   // Modal content map
   const modalContentMap = {
     addMovie: ModalAddMovie,
+    verMedia: ModalVerMedia,
     // agregar más tipos acá
   };
 
-  // Abrir modal
+  //Funciones Modal
   const Agregar = () => {
-    setModalType("addMovie");
-    setShowModal(true);
+    setModalType("addMovie")
+    setShowModal(true)
   };
-
-
-  const getListaPorVer = () => {
-
-    let filteredList = listaPorVer
-
-    if(search.trim() !== ""){
-      filteredList = listaPorVer.filter((item) =>
-        item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-      )
-    }
-
-
-    return filteredList
+  const verMedia = (item) => {
+    setMediaItem(item)
+    setModalType("verMedia")
+    setShowModal(true)
   }
 
-  // const searchMovie = () =>{
-      
-      
-  //     const busquedaEnVer = listaPorVer.filter(item => item.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
-  //     if (busquedaEnVer.length === 0) {
-  //         console.log("No se encontraron coincidencias");
-  //     }else{
-  //       console.log("Peliculas encontradas: ", busquedaEnVer);
-  //     }
-  // }
-  // searchMovie()
 
-  // useEffect (() =>{
-    
-  //   //Solo si el search no esta vacio
-  //   if(search.trim() !== ""){
-  //     const busquedaEnVer = listaPorVer.filter((item) =>
+  // Render contenido del modal
+  const renderModalContent = () => {
+    const ModalContent = modalContentMap[modalType];
+    const commonProps = {}
+    if (modalType === "addMovie") {
+      return (
+        <ModalContent
+          {...commonProps}
+          mediaItem={mediaItem}
+          setMediaItem={setMediaItem}
+          onSubmit={handleSubmit}
+        />
+      )
+    }
+    if (modalType === "verMedia") {
 
-  //       item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-  //     )
-
-  //       if (busquedaEnVer.length === 0) {
-  //         console.log("No se encontraron coincidencias");
-  //       }else{
-  //         console.log("Peliculas encontradas: ", busquedaEnVer);
-  //       }
-       
-  //   }
-
-  // },[search,listaPorVer])
-
-  // <List
-  //         title="Por ver"
-  //         array={listaPorVer.filter((item) =>
-  //           item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-  //         )}
-  //       />
-
+      return (
+        <ModalContent
+          {...commonProps}
+          mediaItem={mediaItem}
+          setMediaItem={setMediaItem}
+          onSubmit={handleSubmit}
+        />
+      )
+    }
+    return <ModalContent {...commonProps} />;
+  }
 
   const actions = {
     //Listar Funciones aca
     agregar: Agregar,
     search: setSearch,
+    ver: verMedia,
   };
   const navItem = [
     //Agregar Botones para el nav aca
     {name: "Agregar", action: "agregar", type: "Button"},
     {name: "Buscar", action: "search", type: "Search"},
   ];
+  const cardButtons = [
+    {name: "Ver", action:"ver", type: "Button"},
+    {name: "Estado", action:"estado", type: "Button"},
+    {name: "Eliminar", action:"eliminar", type: "Button"},
+    {name: "Editar", action:"editar", type: "Button"},
+  ]
 
   // Cargar datos de localStorage
   useEffect(() => {
@@ -146,22 +151,8 @@ const [search, setSearch] = useState('')
     setShowModal(false);
   };
 
-  // Render contenido del modal
-  const renderModalContent = () => {
-    const ModalContent = modalContentMap[modalType];
-    const commonProps = {}
-    if (modalType === "addMovie") {
-      return (
-        <ModalContent
-          {...commonProps}
-          mediaItem={mediaItem}
-          setMediaItem={setMediaItem}
-          onSubmit={handleSubmit}
-        />
-      );
-  };
-  return <ModalContent {...commonProps} />;
-}
+
+  
 
   return (
     <div className={styles.mainContainer}>
@@ -181,13 +172,16 @@ const [search, setSearch] = useState('')
         <div className={styles.listContainer}>
           {/* <List title="Por ver" array={listaPorVer} /> */}
 
-    
-
           <List
           title="Por ver"
-          array={getListaPorVer()}
+          array={getFilteredList(listaPorVer)} 
+          button={cardButtons} 
+          buttonAction={actions}
         />
-          <List title="Vista" array={listaVistas} />
+          <List title="Vista" 
+          array={getFilteredList(listaVistas)} 
+          button={cardButtons} 
+          buttonAction={actions} />
         </div>
       </div>
     </div>

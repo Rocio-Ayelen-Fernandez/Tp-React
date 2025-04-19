@@ -97,19 +97,14 @@ const [search, setSearch] = useState('')
     return <ModalContent {...commonProps} />;
   }
 
-  const actions = {
-    //Listar Funciones aca
-    agregar: Agregar,
-    search: setSearch,
-    ver: verMedia,
-  };
+  
   const navItem = [
     //Agregar Botones para el nav aca
-    {name: "Agregar", action: "agregar", type: "Button"},
-    {name: "Buscar", action: "search", type: "Search"},
+    {name: "Agregar", action: Agregar, type: "Button"},
+    {name: "Buscar", action: setSearch, type: "Search"},
   ];
   const cardButtons = [
-    {name: "Ver", action:"ver", type: "Button"},
+    {name: "Ver", action: verMedia, type: "Button"},
     {name: "Estado", action:"estado", type: "Button"},
     {name: "Eliminar", action:"eliminar", type: "Button"},
     {name: "Editar", action:"editar", type: "Button"},
@@ -163,7 +158,7 @@ const [search, setSearch] = useState('')
       )}
 
       <div className={styles.navContainer}>
-        <Nav actions={actions} items={navItem} />
+        <Nav items={navItem} />
 
         {/* <Search setSearch={setSearch}/> */}
       </div>
@@ -181,14 +176,12 @@ const [search, setSearch] = useState('')
           title="Por ver"
           array={getFilteredList(listaPorVer)} 
           arrayTotal ={listaPorVer}
-          button={cardButtons} 
-          buttonAction={actions}
+          button={cardButtons}
         />
           <List title="Vista" 
           array={getFilteredList(listaVistas)} 
           arrayTotal ={listaVistas}
-          button={cardButtons} 
-          buttonAction={actions} />
+          button={cardButtons} />
         </div>
 
         <div className={styles.filterContainer}>

@@ -15,7 +15,7 @@ const GenreCounter = ({ list1,list2 }) => {
         
         <div className={styles.container}>
             {Object.entries(genreCount).map(([genre, count]) => (
-                <div className={styles.genreContainer}>
+                <div key={genre} className={styles.genreContainer}>
                     <h5>{genre}: {count}</h5>
                 </div>
                 

@@ -4,7 +4,7 @@ import styles from './Card.module.css'
 
 //Array de botones
 
-const Card = ({mediaItem, button, buttonAction}) => {
+const Card = ({mediaItem, button}) => {
     
 
     return(
@@ -23,7 +23,7 @@ const Card = ({mediaItem, button, buttonAction}) => {
             <div className={styles.buttonsContainer}>
                 {/* Renderiza los botones del array */}
                 {button.map((button, index) => (
-                <Button key={index} name={button.name} onclick={() => buttonAction[button.action](mediaItem)} className={styles.button.name} />
+                <Button key={index} name={button.name} onclick={() => button.action(mediaItem)} className={styles.button.name} />
             ))}
             </div> 
                         

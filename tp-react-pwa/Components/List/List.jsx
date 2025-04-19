@@ -4,7 +4,7 @@ import ListCounter from '../Counter/ListCounter/ListCounter'
 
 
 
-const List = ({title, array, arrayTotal, button, buttonAction}) =>{
+const List = ({title, array, arrayTotal, button}) =>{
 
     
     return (
@@ -20,7 +20,7 @@ const List = ({title, array, arrayTotal, button, buttonAction}) =>{
                 {array && array.length>0?
                 array.map((media, index) => (
                     
-                    <Card mediaItem={media} key={index} button={button} buttonAction={buttonAction}/>
+                    <Card mediaItem={media} key={index} button={button}/>
                 )) :  (<p>No hay peliculas para mostrar</p>)}
             </div>
             

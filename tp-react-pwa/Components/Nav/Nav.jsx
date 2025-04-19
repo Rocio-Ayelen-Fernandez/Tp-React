@@ -3,15 +3,15 @@ import Button from '../Button/Button'
 import Search from "../../Components/Search/Search"
 
 
-const Nav = ({actions, items})=>{
+const Nav = ({items})=>{
 
     const componentMap = {
         Button: Button,
         Search: Search,
     }
     const propsMap = {
-        Button: (action) => ({ onclick: actions[action] }),
-        Search: (action) => ({ setSearch: actions[action] }), 
+        Button: (action) => ({ onclick: action }), 
+        Search: ( action ) => ({ setSearch: action }),
       };
 
     //Modal
@@ -20,7 +20,7 @@ const Nav = ({actions, items})=>{
     return(
         <div className={Styles.navContainer}>
 
-            {items.map(({name,action,type}) => {
+            {items.map(({name, action, type}) => {
 
                 const Component = componentMap[type]
                 if(!Component){

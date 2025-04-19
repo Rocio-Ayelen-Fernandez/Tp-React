@@ -1,12 +1,10 @@
 import styles from "./Home.module.css";
 import List from "../../Components/List/List";
 import Nav from "../../Components/Nav/Nav";
-import Button from "../../Components/Button/Button";
 import Modal from "../../Components/Modal/Modal";
 import ModalAddMovie from "../../Components/Modal/ModalAddMovie";
 import ModalVerMedia from "../../Components/Modal/ModalVerMedia";
-import Search from "../../Components/Search/Search";
-import ListCounter from "../../Components/Counter/ListCounter/ListCounter";
+import GenreCounter from "../../Components/Counter/GenreCounter/GenreCounter";
 import { useState, useEffect } from "react";
 
 
@@ -45,7 +43,7 @@ const [search, setSearch] = useState('')
       return list; // Si no hay búsqueda, devuelve la lista completa
     }
     return list.filter((item) =>
-      item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+      item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || item.director.toLocaleLowerCase().includes(search.toLocaleLowerCase())
     );
   };
 
@@ -170,6 +168,11 @@ const [search, setSearch] = useState('')
         {/* <Search setSearch={setSearch}/> */}
       </div>
 
+
+      <div className={styles.counterContainer}>
+        <GenreCounter list1={listaPorVer} list2={listaVistas} />
+      </div>
+      
       <div className={styles.mainGrid}>
         <div className={styles.listContainer}>
           {/* <List title="Por ver" array={listaPorVer} /> */}
@@ -187,7 +190,7 @@ const [search, setSearch] = useState('')
         </div>
 
         <div className={styles.filterContainer}>
-        
+          
         </div>
       </div>
     </div>

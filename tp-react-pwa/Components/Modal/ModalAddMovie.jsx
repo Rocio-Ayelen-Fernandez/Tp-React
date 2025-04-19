@@ -9,7 +9,7 @@ const ModalAddMovie = ({ mediaItem, setMediaItem, onSubmit }) => {
     {
       name: "genre",
       type: "select",
-      options: ["Drama", "Acción", "Comedia", "Ciencia Ficción"],
+      options: ["Drama", "Acción", "Comedia", "Ciencia Ficción", "Documental", "Terror", "Romance"],
       placeholder: "Seleccionar género",
     },
     {

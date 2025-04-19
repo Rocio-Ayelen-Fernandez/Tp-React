@@ -10,11 +10,16 @@ const Card = ({mediaItem, button, buttonAction}) => {
     return(
         <article className={styles.card}>
             <div className={styles.image}><img src={mediaItem.url} /></div>
-            <div className={styles.titleContainer}>
-                <h3 className={styles.title}>{mediaItem.title}</h3> 
+            <div className={styles.info}>
+               
+                <h2>{mediaItem.title}</h2>
+                <p>Director: {mediaItem.director}</p>
+                {/* <p>Año: {mediaItem.year}</p> */}
+                {/* <p>Género: {mediaItem.genre}</p> */}
+                <p>Rating: ⭐ {mediaItem.rating}</p>
+                {/* <p>Tipo: {mediaItem.type}</p> */}
+                              
             </div>
-            <p>{mediaItem.director}</p>
-            <p>⭐ {mediaItem.rating}</p>
             <div className={styles.buttonsContainer}>
                 {/* Renderiza los botones del array */}
                 {button.map((button, index) => (

@@ -12,6 +12,7 @@
     justify-content: center;
     align-items: center;
     color: aliceblue;
+    z-index: 1000;
   }
   .buttonClose {
     position: absolute;

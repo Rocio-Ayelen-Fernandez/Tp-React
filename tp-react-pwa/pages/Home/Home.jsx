@@ -6,6 +6,7 @@ import Modal from "../../Components/Modal/Modal";
 import ModalAddMovie from "../../Components/Modal/ModalAddMovie";
 import ModalVerMedia from "../../Components/Modal/ModalVerMedia";
 import Search from "../../Components/Search/Search";
+import ListCounter from "../../Components/Counter/ListCounter/ListCounter";
 import { useState, useEffect } from "react";
 
 
@@ -24,7 +25,7 @@ const Home = () => {
     rating: "",
     type: "",
     isSeen: false,
-    img: "",
+    url: "",
   });
 
 
@@ -147,6 +148,7 @@ const [search, setSearch] = useState('')
       rating: "",
       type: "",
       isSeen: false,
+      url: ""
     });
     setShowModal(false);
   };
@@ -182,6 +184,10 @@ const [search, setSearch] = useState('')
           array={getFilteredList(listaVistas)} 
           button={cardButtons} 
           buttonAction={actions} />
+        </div>
+
+        <div className={styles.filterContainer}>
+        
         </div>
       </div>
     </div>

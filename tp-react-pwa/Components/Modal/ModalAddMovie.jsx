@@ -44,7 +44,7 @@ const ModalAddMovie = ({ mediaItem, setMediaItem, onSubmit, title, buttonText })
       if (!value || (field.type === "number" && isNaN(value))) {
         isValid =false
       }
-      if (field.name === "rating" && (value < 0 || value > 10)) {
+      if (field.name === "rating" && (value < 0 || value > 5)) {
         isValid = false
       }
     }

@@ -7,7 +7,6 @@ import ModalDeleteMovie from "../../Components/Modal/ModalDeleteMovie";
 import ModalVerMedia from "../../Components/Modal/ModalVerMedia";
 import GenreCounter from "../../Components/Counter/GenreCounter/GenreCounter";
 import Aside from "../../Components/Aside/Aside"
-import Button from "../../Components/Button/Button";
 import { useState, useEffect } from "react";
 import { Plus, Trash2, BookmarkCheck, Expand, BookmarkX, SquarePen, Menu } from 'lucide-react';
 
@@ -65,7 +64,6 @@ const Home = () => {
       .filter((item) =>
         item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || item.director.toLocaleLowerCase().includes(search.toLocaleLowerCase())
       );
-      console.log(sort)
     if (sort.sortBy === "year") {
       filtered.sort((a, b) =>
         sort.order === "asc" ? a.year - b.year : b.year - a.year

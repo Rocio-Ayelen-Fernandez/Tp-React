@@ -1,0 +1,21 @@
+.aside{
+    /*splay: hidden;*/
+    position: absolute;
+    top: 50px;
+    right:0;
+    background-color: black;
+    padding: 15px 15px 30px 15px;
+    margin:0;
+    margin-right: 8px;
+    border-radius: 10px;
+    width:350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.aside h3 {
+    margin: 0;
+    padding: 0;
+}

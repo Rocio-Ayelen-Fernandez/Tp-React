@@ -14,7 +14,7 @@ button {
   background: rgba(0, 0, 0, 0);
   border: none;
   position: absolute;
-  top: -48px;
+  top: -45px;
   right: 0;
 }
 
@@ -29,13 +29,17 @@ button {
 
 .buttonState svg {
   cursor: pointer;
-  fill: rgb(147, 147, 147);
-  stroke: rgb(0, 0, 0);
+  fill: rgba(147, 147, 147, 0);
+  stroke: rgb(12, 12, 12);
   stroke-width: 1.5px;
 }
 
 .buttonState:hover svg {
   cursor: pointer;
-  fill: rgb(79, 203, 79);
+  fill: rgb(255, 255, 255);
   stroke-width: 1.5px;
+}
+
+.buttonExpand {
+  cursor: pointer;
 }

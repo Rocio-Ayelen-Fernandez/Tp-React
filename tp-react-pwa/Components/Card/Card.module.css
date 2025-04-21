@@ -6,7 +6,7 @@
     padding: 12px;
     width: 90%;
     height: 80px;
-    border-radius: 12px;
+    border-radius: 8px 8px 25px 8px ;
     background-color: #998e8e;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.201);
     margin: 10px auto;

@@ -3,27 +3,27 @@ import Button from '../Button/Button'
 import Search from "../../Components/Search/Search"
 
 
-const Nav = ({actions, items})=>{
+const Nav = ({ items }) => {
 
     const componentMap = {
         Button: Button,
         Search: Search,
     }
     const propsMap = {
-        Button: (action) => ({ onclick: actions[action] }),
-        Search: (action) => ({ setSearch: actions[action] }), 
-      };
+        Button: (action) => ({ onclick: action }),
+        Search: (action) => ({ setSearch: action }),
+    };
 
     //Modal
     // const [showModal, setShowModal] = useState(false)
 
-    return(
+    return (
         <div className={Styles.navContainer}>
 
-            {items.map(({name,action,type}) => {
+            {items.map(({ name, action, type, icon }) => {
 
                 const Component = componentMap[type]
-                if(!Component){
+                if (!Component) {
 
                     console.error(`El tipo "${type}" no está definido en el mapeo de componentes.`);
                     // return null;
@@ -31,13 +31,17 @@ const Nav = ({actions, items})=>{
 
                 const dynamicProps = propsMap[type](action)
 
-                return(
-                    <Component key={name} name={name} {...dynamicProps}/>
+
+                return (
+                    <Component key={name} name={name} {...dynamicProps}>
+                        {icon && <span className={Styles.icon}>{icon}</span>}
+                        {name && <span className={Styles[`component${name}`]}>{name}</span>}
+                    </Component>
                 )
-                
+
             })}
 
-          
+
         </div>
     )
 }

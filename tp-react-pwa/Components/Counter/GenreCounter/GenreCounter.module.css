@@ -1,0 +1,16 @@
+.container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.genreContainer{
+    width: auto;
+    border: solid 1px black;
+    border-radius: 5px;
+}
+.genreContainer h5{
+    margin: 0rem 1rem 0rem 1rem;
+    padding:0;
+}

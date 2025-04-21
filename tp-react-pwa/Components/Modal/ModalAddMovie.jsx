@@ -80,7 +80,9 @@ const ModalAddMovie = ({ mediaItem, setMediaItem, onSubmit }) => {
         />
       </label>
 
-      <Button name="Agregar" onclick={onSubmit} />
+      <Button name="Agregar" onclick={onSubmit}>
+        Agregar
+      </Button>
     </div>
   );
 };

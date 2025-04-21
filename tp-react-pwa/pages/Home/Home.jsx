@@ -1,11 +1,13 @@
 import styles from "./Home.module.css";
 import List from "../../Components/List/List";
 import Nav from "../../Components/Nav/Nav";
-import Button from "../../Components/Button/Button";
 import Modal from "../../Components/Modal/Modal";
 import ModalAddMovie from "../../Components/Modal/ModalAddMovie";
-import Search from "../../Components/Search/Search";
+import ModalDeleteMovie from "../../Components/Modal/ModalDeleteMovie";
+import ModalVerMedia from "../../Components/Modal/ModalVerMedia";
+import GenreCounter from "../../Components/Counter/GenreCounter/GenreCounter";
 import { useState, useEffect } from "react";
+import { Plus, Trash2, BookmarkCheck, Expand, BookmarkX, SquarePen } from 'lucide-react';
 
 
 
@@ -23,93 +25,141 @@ const Home = () => {
     rating: "",
     type: "",
     isSeen: false,
-    img: "",
+    url: "",
   });
 
 
-// Input SearchMovie
-const [search, setSearch] = useState('')
-//const [searchParam, setSearchParam] = useState('')
+  // Input SearchMovie
+  const [search, setSearch] = useState('')
+  //const [searchParam, setSearchParam] = useState('')
   // Listas
   const [listaPorVer, setListaPorVer] = useState([]);
   const [listaVistas, setListaVistas] = useState([]);
 
+  const getFilteredList = (list) => {
+
+    if (search.trim() === "") {
+      return list; // Si no hay búsqueda, devuelve la lista completa
+    }
+    return list.filter((item) =>
+      item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || item.director.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+    );
+  };
+
+  // MODAL
+
   // Modal content map
   const modalContentMap = {
     addMovie: ModalAddMovie,
+    deleteMediaItem: ModalDeleteMovie,
+    verMedia: ModalVerMedia,
     // agregar más tipos acá
   };
 
   // Abrir modal
   const Agregar = () => {
+    setMediaItem({
+      title: "",
+      director: "",
+      year: "",
+      genre: "",
+      rating: "",
+      type: "",
+      isSeen: false,
+      url: ""
+    });
     setModalType("addMovie");
     setShowModal(true);
   };
+  
 
-
-  const getListaPorVer = () => {
-
-    let filteredList = listaPorVer
-
-    if(search.trim() !== ""){
-      filteredList = listaPorVer.filter((item) =>
-        item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-      )
-    }
-
-
-    return filteredList
+  const deleteMediaItem = (item) => {
+    setMediaItem(item)
+    setModalType("deleteMediaItem")
+    setShowModal(true)
   }
 
-  // const searchMovie = () =>{
-      
-      
-  //     const busquedaEnVer = listaPorVer.filter(item => item.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
-  //     if (busquedaEnVer.length === 0) {
-  //         console.log("No se encontraron coincidencias");
-  //     }else{
-  //       console.log("Peliculas encontradas: ", busquedaEnVer);
-  //     }
-  // }
-  // searchMovie()
+  const verMedia = (item) => {
+    setMediaItem(item)
+    setModalType("verMedia")
+    setShowModal(true)
+  }
 
-  // useEffect (() =>{
-    
-  //   //Solo si el search no esta vacio
-  //   if(search.trim() !== ""){
-  //     const busquedaEnVer = listaPorVer.filter((item) =>
-
-  //       item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-  //     )
-
-  //       if (busquedaEnVer.length === 0) {
-  //         console.log("No se encontraron coincidencias");
-  //       }else{
-  //         console.log("Peliculas encontradas: ", busquedaEnVer);
-  //       }
-       
-  //   }
-
-  // },[search,listaPorVer])
-
-  // <List
-  //         title="Por ver"
-  //         array={listaPorVer.filter((item) =>
-  //           item.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-  //         )}
-  //       />
-
-
-  const actions = {
-    //Listar Funciones aca
-    agregar: Agregar,
-    search: setSearch,
+  const changeStateMedia = (item) => {
+    let updatedItem = {...item, isSeen: !item.isSeen}
+    let nuevaListaPorVer = listaPorVer.filter((i) => i.id !== item.id);
+    let nuevaListaVistas = listaVistas.filter((i) => i.id !== item.id);
+  
+    if (updatedItem.isSeen) {
+      nuevaListaVistas = [...nuevaListaVistas, updatedItem];
+    } else {
+      nuevaListaPorVer = [...nuevaListaPorVer, updatedItem];
+    }
+  
+    setListaPorVer(nuevaListaPorVer);
+    setListaVistas(nuevaListaVistas);
+  
+    localStorage.setItem("listaPorVer", JSON.stringify(nuevaListaPorVer));
+    localStorage.setItem("listaVistas", JSON.stringify(nuevaListaVistas));
   };
-  const navItem = [
-    //Agregar Botones para el nav aca
-    {name: "Agregar", action: "agregar", type: "Button"},
-    {name: "Buscar", action: "search", type: "Search"},
+
+  // Render contenido del modal
+  const renderModalContent = () => {
+    const ModalContent = modalContentMap[modalType];
+    const commonProps = {} //Poner los props acá (?)
+    if (modalType === "addMovie") {
+      return (
+        <ModalContent
+          {...commonProps}
+          mediaItem={mediaItem}
+          setMediaItem={setMediaItem}
+          onSubmit={handleSubmit}
+        />
+      );
+    };
+    if (modalType === "deleteMediaItem") {
+      return (
+        <ModalContent {...commonProps}
+          mediaItem={mediaItem}
+          setMediaItem={setMediaItem}
+          onConfirm={handleSubmit}
+        />
+      )
+    };
+    if (modalType === "verMedia") {
+      return (
+        <ModalContent
+          {...commonProps}
+          mediaItem={mediaItem}
+          setMediaItem={setMediaItem}
+          onSubmit={handleSubmit}
+        />
+      )
+    }
+    return <ModalContent {...commonProps} />;
+  }
+
+  const navItems = [
+    { name: "Agregar", action: Agregar, type: "Button", icon: <Plus /> },
+    { name: "Buscar", action: setSearch, type: "Search" },
   ];
+  
+  const listButtons = [
+    { name: "Expand", icon: <Expand />, action: verMedia },
+    {
+      name: "State",
+      icon: (item) =>
+        item.isSeen ? (
+          <BookmarkX />
+        ) : (
+          <BookmarkCheck />
+        ),
+      action: changeStateMedia,
+    },
+    { name: "Delete", icon: <Trash2 />, action: deleteMediaItem },
+    { name: "Edit", icon: <SquarePen /> },
+  ];
+  
 
   // Cargar datos de localStorage
   useEffect(() => {
@@ -121,19 +171,38 @@ const [search, setSearch] = useState('')
 
   // Guardar película
   const handleSubmit = () => {
-    if (!mediaItem.title.trim()) return;
+    if (modalType === "addMovie") {
+      // Generar un id único
+      if (!mediaItem.title.trim()) return;
+      const newMediaItem = {
+        ...mediaItem,
+        id: crypto.randomUUID() // esto genera un id único automáticamente
+      };
 
-
-    if (!mediaItem.isSeen) {
-      const nuevaListaPorVer = [...listaPorVer, mediaItem];
-      setListaPorVer(nuevaListaPorVer);
-      localStorage.setItem("listaPorVer", JSON.stringify(nuevaListaPorVer));
-    } else {
-      const nuevaListaVistas = [...listaVistas, mediaItem];
-      setListaVistas(nuevaListaVistas);
-      localStorage.setItem("listaVistas", JSON.stringify(nuevaListaVistas));
+      if (!mediaItem.isSeen) {
+        const nuevaListaPorVer = [...listaPorVer, newMediaItem];
+        setListaPorVer(nuevaListaPorVer);
+        localStorage.setItem("listaPorVer", JSON.stringify(nuevaListaPorVer));
+      } else {
+        const nuevaListaVistas = [...listaVistas, newMediaItem];
+        setListaVistas(nuevaListaVistas);
+        localStorage.setItem("listaVistas", JSON.stringify(nuevaListaVistas));
+      }
     }
 
+    if (modalType === "deleteMediaItem") {
+      const nuevaListaPorVer = listaPorVer.filter(
+        (item) => item.id !== mediaItem.id
+      );
+      const nuevaListaVistas = listaVistas.filter(
+        (item) => item.id !== mediaItem.id
+      );
+      setListaPorVer(nuevaListaPorVer);
+      setListaVistas(nuevaListaVistas);
+
+      localStorage.setItem("listaPorVer", JSON.stringify(nuevaListaPorVer));
+      localStorage.setItem("listaVistas", JSON.stringify(nuevaListaVistas));
+    }
     setMediaItem({
       title: "",
       director: "",
@@ -142,26 +211,10 @@ const [search, setSearch] = useState('')
       rating: "",
       type: "",
       isSeen: false,
+      url: ""
     });
     setShowModal(false);
   };
-
-  // Render contenido del modal
-  const renderModalContent = () => {
-    const ModalContent = modalContentMap[modalType];
-    const commonProps = {}
-    if (modalType === "addMovie") {
-      return (
-        <ModalContent
-          {...commonProps}
-          mediaItem={mediaItem}
-          setMediaItem={setMediaItem}
-          onSubmit={handleSubmit}
-        />
-      );
-  };
-  return <ModalContent {...commonProps} />;
-}
 
   return (
     <div className={styles.mainContainer}>
@@ -172,22 +225,23 @@ const [search, setSearch] = useState('')
       )}
 
       <div className={styles.navContainer}>
-        <Nav actions={actions} items={navItem} />
-
-        {/* <Search setSearch={setSearch}/> */}
+        <Nav items={navItems} />
       </div>
-
       <div className={styles.mainGrid}>
         <div className={styles.listContainer}>
           {/* <List title="Por ver" array={listaPorVer} /> */}
-
-    
-
           <List
-          title="Por ver"
-          array={getListaPorVer()}
-        />
-          <List title="Vista" array={listaVistas} />
+            title="Por ver"
+            array={getFilteredList(listaPorVer)}
+            arrayTotal={listaPorVer}
+            buttons={listButtons}
+          />
+          <List
+            title="Vista"
+            array={getFilteredList(listaVistas)}
+            arrayTotal={listaVistas}
+            buttons={listButtons}
+          />
         </div>
       </div>
     </div>

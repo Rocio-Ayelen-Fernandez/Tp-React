@@ -1,4 +1,4 @@
-import Filter from '../FIlter/Filter';
+import Filter from '../Filter/Filter';
 import Sort from '../Sort/Sort';
 import Styles from './Aside.module.css'
 

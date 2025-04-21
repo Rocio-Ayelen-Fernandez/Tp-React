@@ -1,45 +1,65 @@
 .card {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 20px;
+    padding: 12px;
     width: 90%;
-    min-height: 80px;
-    border-radius: 12px;
-    background-color: #1e1e1e; /* dark grey */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 80px;
+    border-radius: 8px 8px 25px 8px ;
+    background-color: #998e8e;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.201);
     margin: 10px auto;
     border: 1px solid #2a2a2a;
+    overflow: hidden;
 }
 
-.card:hover {
-    transform: scale(1.01);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
+.movieContainer {
+    display: flex;
+    height: 100%;
+    width: 80%;
+    align-items: center;
+    gap: 0.5em;
 }
 
-.titleContainer {
-    flex: 1;
-    max-width: 60%;
-    padding-right: 10px;
-    word-break: break-word;
-    color: #ffffff;
+.imgContainer {
+    width: auto;
+    height: 100%;
+    overflow: hidden;
 }
 
-.title {
-    font-size: 16px;
-    font-weight: 500;
-    color: #ffffff;
+.imgContainer img {
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.detailsContainer {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    height: 100%;
+}
+
+.detailsContainer p{
     margin: 0;
 }
 
+.title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+
 .buttonsContainer {
+    position: absolute;
     display: flex;
+    bottom: 0; right: 0;
+    padding: 0.6em;
     gap: 8px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
     align-items: center;
-    width: 40%;
 }
 
 .button {
@@ -48,7 +68,6 @@
     color: #fff;
     border-radius: 8px;
     padding: 6px 12px;
-    font-size: 14px;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
@@ -58,13 +77,22 @@
     transform: scale(1.05);
 }
 
-.image{
-    width: 50px;
-    height: 50px;
+.starIcon {
+    fill: rgba(255, 230, 0, 0.873);
+    stroke: none;
 }
 
-.image img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.ratingContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: larger;
 }
+
+@media screen and (max-width: 768px) {
+    button {
+        transform: scale(0.9);
+    }
+
+}
+

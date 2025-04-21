@@ -1,7 +1,9 @@
 import Button from "../Button/Button";
 import styles from "./Modal.module.css";
+import { useState } from "react";
 
-const ModalAddMovie = ({ mediaItem, setMediaItem, onSubmit }) => {
+const ModalAddMovie = ({ mediaItem, setMediaItem, onSubmit, title, buttonText }) => {
+  const [error, setError] = useState("");
   const fields = [
     { name: "title", placeholder: "Título", type: "text" },
     { name: "director", placeholder: "Director", type: "text" },
@@ -9,7 +11,7 @@ const ModalAddMovie = ({ mediaItem, setMediaItem, onSubmit }) => {
     {
       name: "genre",
       type: "select",
-      options: ["Drama", "Acción", "Comedia", "Ciencia Ficción"],
+      options: ["Drama", "Acción", "Comedia", "Ciencia Ficción", "Terror", "Romance", "Aventura", "Animación", "Documental", "Fantasía", "Musical", "Suspenso"],
       placeholder: "Seleccionar género",
     },
     {
@@ -35,10 +37,30 @@ const ModalAddMovie = ({ mediaItem, setMediaItem, onSubmit }) => {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-
+  const isFormValid = () => {
+    let isValid= true
+    for (const field of fields) {
+      const value = mediaItem[field.name];
+      if (!value || (field.type === "number" && isNaN(value))) {
+        isValid =false
+      }
+      if (field.name === "rating" && (value < 0 || value > 5)) {
+        isValid = false
+      }
+    }
+    return isValid;
+  };
+  const handleSubmit = () => {
+    if (isFormValid()) {
+      setError("");
+      onSubmit();
+    } else {
+      setError("Por favor, completá todos los campos correctamente.");
+    }
+  };
   return (
     <div className={styles.modalForm}>
-      <h3>Agregar Película o Serie</h3>
+      <h3>{title}</h3>
       <div className={styles.modalGrid}>
         {fields.map((field) =>
           field.type === "select" ? (
@@ -79,8 +101,8 @@ const ModalAddMovie = ({ mediaItem, setMediaItem, onSubmit }) => {
           onChange={handleChange}
         />
       </label>
-
-      <Button name="Agregar" onclick={onSubmit} />
+      {error && <p className={styles.error}>{error}</p>}
+      <Button name={buttonText} onclick={handleSubmit}> {buttonText} </Button>
     </div>
   );
 };

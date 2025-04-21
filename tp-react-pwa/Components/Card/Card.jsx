@@ -1,28 +1,38 @@
+import { Star } from 'lucide-react'
 import Button from '../Button/Button'
 import styles from './Card.module.css'
 
 
 //Array de botones
-let buttons=["Ver", "Estado", "E", "E"];
-
-const Card = ({mediaItem}) => {
-    
-
-    return(
+const Card = ({ mediaItem, buttons }) => {
+    return (
         <article className={styles.card}>
-            <div className={styles.image}><img src={mediaItem.url} /></div>
-            <div className={styles.titleContainer}>
-                <h3 className={styles.title}>{mediaItem.title}</h3> 
+            <div className={styles.movieContainer}>
+                <div className={styles.imgContainer}>
+                    <img src={mediaItem.url} />
+                </div>
+                <div className={styles.detailsContainer}>
+                    <p className={styles.title}>{mediaItem.title}</p>
+                    <p><b>Director:</b> {mediaItem.director}</p>
+                    <div className={styles.ratingContainer}>
+                        <div>
+                            {Array(5).fill().map((_, index) => (<Star className={index < Number(mediaItem.rating) ? styles.starIcon : ''} key={index}></Star>))}
+                        </div>
+                        <b>{mediaItem.rating}</b>
+                    </div>
+
+                </div>
             </div>
-            <p>{mediaItem.director}</p>
-            <p>⭐ {mediaItem.rating}</p>
             <div className={styles.buttonsContainer}>
                 {/* Renderiza los botones del array */}
-                {buttons.map((buttonName, index) => (
-                <Button key={index} name={buttonName} className={styles.button} />
-            ))}
-            </div> 
-                        
+                {buttons.map((button, index) => (
+                    <Button key={index} name={button.name} onclick={() => button.action(mediaItem)} className={styles[`button${button.name}`]}>
+                        {typeof button.icon === 'function' ? button.icon(mediaItem) : button.icon}
+                    </Button>
+                ))}
+
+            </div>
+
         </article>
     )
 }

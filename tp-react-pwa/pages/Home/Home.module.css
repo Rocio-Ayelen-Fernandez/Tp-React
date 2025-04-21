@@ -1,30 +1,38 @@
-body{
-}
-.mainContainer{
+.mainContainer {
     position: relative;
 }
 
-.mainGrid{
+.mainGrid {
     display: grid;
-    grid-template-columns: 1fr 300px ;
+    grid-template-columns: 1fr;
     gap: 1em;
     padding: 1em;
     flex: 1;
 }
 
-.listContainer{
+.listContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
 }
 
-.filterContainer{
+.filterContainer {
     background-color: gray;
     padding: 1rem;
     border-radius: 8px;
 }
 
 .navContainer {
-    /* background-color: pink; */
     width: 100%;
     height: 60px;
+}
+
+@media screen and (max-width: 768px) {
+    .mainGrid {
+        grid-template-columns: 1fr; 
+    }
+
+    .listContainer {
+        grid-template-columns: 1fr;
+    }
 }

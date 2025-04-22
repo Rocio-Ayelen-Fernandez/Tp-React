@@ -16,7 +16,7 @@ const ModalAddMovie = ({ mediaItem, setMediaItem, onSubmit, title, buttonText })
     },
     {
       name: "rating",
-      placeholder: "Rating (0-10)",
+      placeholder: "Rating",
       type: "number",
       min: 0,
       max: 10,
@@ -38,24 +38,33 @@ const ModalAddMovie = ({ mediaItem, setMediaItem, onSubmit, title, buttonText })
     }));
   };
   const isFormValid = () => {
-    let isValid= true
+    
+    let errorMessage = ""
     for (const field of fields) {
       const value = mediaItem[field.name];
       if (!value || (field.type === "number" && isNaN(value))) {
-        isValid =false
+        errorMessage = `El campo ${field.placeholder} es obligatorio.`;
+        
       }
       if (field.name === "rating" && (value < 0 || value > 5)) {
-        isValid = false
+        errorMessage = `El campo ${field.placeholder} debe estar entre 0 y 5.`;
+        
+      }
+      if (field.name === "year" && (value < 1800 || value > new Date().getFullYear())) {
+        errorMessage = `El campo ${field.placeholder} debe estar entre 1800 y ${new Date().getFullYear()}.`;
       }
     }
-    return isValid;
+    return {
+      isValid: errorMessage === "",
+      message: errorMessage,
+    }
   };
   const handleSubmit = () => {
-    if (isFormValid()) {
+    if (isFormValid().isValid) {
       setError("");
       onSubmit();
     } else {
-      setError("Por favor, completá todos los campos correctamente.");
+      setError(isFormValid().message);
     }
   };
   return (

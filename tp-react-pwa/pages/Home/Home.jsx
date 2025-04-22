@@ -2,11 +2,12 @@ import styles from "./Home.module.css";
 import List from "../../Components/List/List";
 import Nav from "../../Components/Nav/Nav";
 import Modal from "../../Components/Modal/Modal";
-import ModalAddMovie from "../../Components/Modal/ModalAddMovie";
-import ModalDeleteMovie from "../../Components/Modal/ModalDeleteMovie";
-import ModalVerMedia from "../../Components/Modal/ModalVerMedia";
+import ModalAddMovie from "../../Components/ModalAddMovie/ModalAddMovie";
+import ModalDeleteMovie from "../../Components/ModalDeleteMovie/ModalDeleteMovie";
+import ModalVerMedia from "../../Components/ModalVerMedia/ModalVerMedia";
 import GenreCounter from "../../Components/Counter/GenreCounter/GenreCounter";
 import Aside from "../../Components/Aside/Aside"
+import RenderModalContent from "../../Components/RenderModalContent/RenderModalContent"
 import { useState, useEffect } from "react";
 
 
@@ -91,14 +92,7 @@ const Home = () => {
 
   // MODAL
 
-  // Modal content map
-  const modalContentMap = {
-    addMovie: ModalAddMovie,
-    deleteMediaItem: ModalDeleteMovie,
-    verMedia: ModalVerMedia,
-    editMovie: ModalAddMovie,
-    // agregar más tipos acá
-  };
+
 
   // Abrir modal
   const Agregar = () => {
@@ -154,54 +148,7 @@ const Home = () => {
   };
 
   // Render contenido del modal
-  const renderModalContent = () => {
-    const ModalContent = modalContentMap[modalType];
-    const commonProps = {
-      mediaItem,
-      setMediaItem,
-    } //Poner los props acá (?)
-    if (modalType === "addMovie") {
-
-      return (
-        <ModalContent
-          {...commonProps}
-          onSubmit={handleSubmit}
-          title="Agregar Película o Serie"
-          buttonText="Agregar"
-        />
-      );
-    };
-    if (modalType === "deleteMediaItem") {
-      return (
-        <ModalContent {...commonProps}
-          mediaItem={mediaItem}
-          setMediaItem={setMediaItem}
-          onConfirm={handleSubmit}
-        />
-      )
-    };
-    if (modalType === "verMedia") {
-      return (
-        <ModalContent
-          {...commonProps}
-          mediaItem={mediaItem}
-          setMediaItem={setMediaItem}
-          onSubmit={handleSubmit}
-        />
-      )
-    }
-    if (modalType === "editMovie") {
-      return (
-        <ModalContent
-          {...commonProps}
-          onSubmit={handleEditSubmit}
-          title="Editar Película o Serie"
-          buttonText="Guardar Cambios"
-        />
-      );
-    }
-    return <ModalContent {...commonProps} />;
-  }
+ 
 
 
   const actions = {
@@ -218,8 +165,11 @@ const Home = () => {
   
   // Cargar datos de localStorage
   useEffect(() => {
-    const peliculasVistas = JSON.parse(localStorage.getItem("listaVistas")) || [];
-    const peliculasPorVer = JSON.parse(localStorage.getItem("listaPorVer")) || [];
+    const peliculasVistas = (JSON.parse(localStorage.getItem("listaVistas")) || [])
+      .filter(item => item.title && item.director);
+    const peliculasPorVer = (JSON.parse(localStorage.getItem("listaPorVer")) || [])
+      .filter(item => item.title && item.director);
+      
     setListaVistas(peliculasVistas);
     setListaPorVer(peliculasPorVer);
   }, []);
@@ -302,7 +252,7 @@ const Home = () => {
     <div className={styles.mainContainer}>
       {showModal && (
         <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-          {renderModalContent()}
+          <RenderModalContent handleSubmit={handleSubmit} mediaItem={mediaItem} setMediaItem={setMediaItem} handleEditSubmit={handleEditSubmit} modalType={modalType}/>
         </Modal>
       )}
 

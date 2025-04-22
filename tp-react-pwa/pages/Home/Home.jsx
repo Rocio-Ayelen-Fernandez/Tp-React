@@ -204,11 +204,17 @@ const Home = () => {
     return <ModalContent {...commonProps} />;
   }
 
-  const navItems = [
-    { name: "Agregar", action: Agregar, type: "Button", icon: <Plus /> },
-    { name: "Buscar", action: setSearch, type: "Search" },
-    { name: "Filtros", action: toggleAside, type: "Button", icon: <Menu /> },
-  ];
+
+  const actions = {
+    Agregar: Agregar,
+    Buscar: setSearch,
+    Filtros: toggleAside,
+    Expand: verMedia,
+    State: changeStateMedia,
+    Delete: deleteMediaItem,
+    Edit: handleEdit,
+  }
+
   
   const listButtons = [
     { name: "Expand", icon: <Expand />, action: verMedia, type: "Button" },
@@ -318,7 +324,7 @@ const Home = () => {
       )}
 
       <div className={styles.navContainer}>
-        <Nav items={navItems} />
+        <Nav actions={actions} />
           
       </div>
       <div className={styles.counterContainer}>

@@ -1,9 +1,17 @@
 import Styles from './Nav.module.css'
 import Button from '../Button/Button'
 import Search from "../../Components/Search/Search"
+import { Plus, Menu } from 'lucide-react';
 
 
-const Nav = ({ items }) => {
+const items = [
+    { name: "Agregar", type: "Button", icon: <Plus /> },
+    { name: "Buscar",  type: "Search" },
+    { name: "Filtros", type: "Button", icon: <Menu /> },
+  ];
+
+
+const Nav = ({actions}) => {
 
     const componentMap = {
         Button: Button,
@@ -20,7 +28,7 @@ const Nav = ({ items }) => {
     return (
         <div className={Styles.navContainer}>
 
-            {items.map(({ name, action, type, icon }) => {
+            {items.map(({ name, type, icon }) => {
 
                 const Component = componentMap[type]
                 if (!Component) {
@@ -29,8 +37,9 @@ const Nav = ({ items }) => {
                     // return null;
                 }
 
-                const dynamicProps = propsMap[type](action)
-
+                
+                const dynamicProps = propsMap[type](actions[name])
+                // console.log(`Rendering ${name} with props:`, dynamicProps)
 
                 return (
                     <Component key={name} name={name} {...dynamicProps}>

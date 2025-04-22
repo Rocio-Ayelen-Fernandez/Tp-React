@@ -1,10 +1,29 @@
 import { Star } from 'lucide-react'
 import Button from '../Button/Button'
 import styles from './Card.module.css'
+import {  Trash2, BookmarkCheck, Expand, BookmarkX, SquarePen } from 'lucide-react';
+
+
+
+const buttons = [
+    { name: "Expand", icon: <Expand />, type: "Button" },
+    {
+      name: "State",
+      icon: (item) =>
+        item.isSeen ? (
+          <BookmarkX />
+        ) : (
+          <BookmarkCheck />
+        ),
+      type: "Button"
+    },
+    { name: "Delete", icon: <Trash2 />, type: "Button" },
+    { name: "Edit",  type: "Button", icon: <SquarePen /> },
+  ];
 
 
 //Array de botones
-const Card = ({ mediaItem, buttons }) => {
+const Card = ({ mediaItem, actions }) => {
     return (
         <article className={styles.card}>
             <div className={styles.movieContainer}>
@@ -26,7 +45,15 @@ const Card = ({ mediaItem, buttons }) => {
             <div className={styles.buttonsContainer}>
                 {/* Renderiza los botones del array */}
                 {buttons.map((button, index) => (
-                    <Button key={index} name={button.name} onclick={() => button.action(mediaItem)} className={styles[`button${button.name}`]}>
+
+                    
+
+                    <Button 
+                        key={index} 
+                        name={button.name} 
+                        onclick={() => actions[button.name](mediaItem)}
+                        className={styles[`button${button.name}`]}>
+                        
                         {typeof button.icon === 'function' ? button.icon(mediaItem) : button.icon}
                     </Button>
                 ))}

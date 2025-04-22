@@ -8,7 +8,6 @@ import ModalVerMedia from "../../Components/Modal/ModalVerMedia";
 import GenreCounter from "../../Components/Counter/GenreCounter/GenreCounter";
 import Aside from "../../Components/Aside/Aside"
 import { useState, useEffect } from "react";
-import { Plus, Trash2, BookmarkCheck, Expand, BookmarkX, SquarePen, Menu } from 'lucide-react';
 
 
 
@@ -215,23 +214,7 @@ const Home = () => {
     Edit: handleEdit,
   }
 
-  
-  const listButtons = [
-    { name: "Expand", icon: <Expand />, action: verMedia, type: "Button" },
-    {
-      name: "State",
-      icon: (item) =>
-        item.isSeen ? (
-          <BookmarkX />
-        ) : (
-          <BookmarkCheck />
-        ),
-      action: changeStateMedia, type: "Button"
-    },
-    { name: "Delete", icon: <Trash2 />, type: "Button", action: deleteMediaItem },
-    { name: "Edit", action: handleEdit, type: "Button", icon: <SquarePen /> },
-  ];
-  
+   
   
   // Cargar datos de localStorage
   useEffect(() => {
@@ -337,13 +320,13 @@ const Home = () => {
             title="Por ver"
             array={getFilteredList(listaPorVer)}
             arrayTotal={listaPorVer}
-            buttons={listButtons}
+            actions={actions}
           />
           <List
             title="Vista"
             array={getFilteredList(listaVistas)}
             arrayTotal={listaVistas}
-            buttons={listButtons}
+            actions={actions}
           />
 
             

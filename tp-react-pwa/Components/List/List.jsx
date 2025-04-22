@@ -2,7 +2,7 @@ import Card from '../Card/Card'
 import styles from './List.module.css'
 import ListCounter from '../Counter/ListCounter/ListCounter'
 
-const List = ({title, array, arrayTotal, buttons}) =>{
+const List = ({title, array, arrayTotal, actions}) =>{
     return (
         
         <section className={styles.list}>
@@ -13,7 +13,7 @@ const List = ({title, array, arrayTotal, buttons}) =>{
             <div>
                 {array && array.length>0?
                 array.map((media, index) => (
-                    <Card mediaItem={media} key={index} buttons={buttons} />
+                    <Card mediaItem={media} key={index} actions={actions} />
                 )) :  (<p>No hay peliculas para mostrar</p>)}
             </div>
         </section>

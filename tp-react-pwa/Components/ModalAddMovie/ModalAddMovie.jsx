@@ -1,5 +1,5 @@
 import Button from "../Button/Button";
-import styles from "./Modal.module.css";
+import styles from "../Modal/Modal.module.css";
 import { useState } from "react";
 
 const ModalAddMovie = ({ mediaItem, setMediaItem, onSubmit, title, buttonText }) => {

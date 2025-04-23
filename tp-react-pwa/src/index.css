@@ -2,7 +2,6 @@
   font-family: 'Inter', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  padding: 0;
 
   --select-arrow: url('/arrow-down-light.svg');
   --border-radius: 12px;
@@ -30,6 +29,10 @@
 
 html {
   color-scheme: light dark;
+}
+
+body{
+  margin: 0;
 }
 
 @media (prefers-color-scheme: dark) {

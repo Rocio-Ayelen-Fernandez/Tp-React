@@ -39,7 +39,8 @@ body{
   :root {
     --base: #1b2021;
     --text: #f9f9f9;
-    --contrast-base: #6d6d6d;
+    --contrast-base: #f9f9f9;
+    --contrast-color:#1b2021;
     --primary-color: #99170d;
     --secondary-color: #950401;
     --select-arrow: url('/arrow-down-dark.svg');

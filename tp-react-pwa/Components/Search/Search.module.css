@@ -1,18 +1,16 @@
 .input {
-    border-radius: 18px;
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    background: #eee;
-    color: #333;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    transition: all 0.2s ease;
-    width: 75%;
-    padding: 0.9rem;
-    background-color: var(--contrast-base);
-    color: var(--contrast-color);
+  border-radius: 18px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  width: 75%;
+  padding: 0.9rem;
+  background-color: var(--contrast-base);
+  color: var(--contrast-color);
 }
 
 .input::placeholder {
-    color: var(--contrast-color);
+  color: var(--contrast-color);
 }

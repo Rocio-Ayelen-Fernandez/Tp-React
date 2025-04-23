@@ -38,13 +38,17 @@
 .ModalVerMedia {
   display: flex;
   align-items: center;
-  gap: 2rem;
   width: 100%;
-  padding: 1rem;
 }
 
 .ModalVerMedia .image {
   width: 150px;
+}
+
+.ModalVerMedia .info {
+  padding-inline: 20px;
+  font-size: 12px;
+  width: 90%;
 }
 
 .ModalVerMedia .image img {
@@ -54,10 +58,17 @@
 }
 
 @media screen and (max-width: 768px) {
+  .ModalVerMedia {
+  display: flex;
+  flex-direction: column;
+  }
   .modalContainer {
     width: 80%;
     height: auto;
     font-size:small;
+  }
+  .image img {
+      transform: scale(0.9);
   }
 }
 

@@ -5,7 +5,6 @@ const ModalVerMedia = ({ mediaItem }) => {
 
     return (
         <div className={styles.ModalVerMedia}>
-
               <div className={styles.image}>
                 <img src={mediaItem.url} alt={mediaItem.title} />
               </div>
@@ -17,9 +16,6 @@ const ModalVerMedia = ({ mediaItem }) => {
                 <p>Rating: ⭐ {mediaItem.rating}</p>
                 <p>Tipo: {mediaItem.type}</p>
               </div>
-              
-          
-
         </div>
         
 

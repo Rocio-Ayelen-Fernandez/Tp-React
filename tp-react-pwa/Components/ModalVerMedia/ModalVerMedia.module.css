@@ -1,0 +1,5 @@
+@media screen and (max-width: 768px) {
+    .image img {
+        transform: scale(0.9);
+    }
+}

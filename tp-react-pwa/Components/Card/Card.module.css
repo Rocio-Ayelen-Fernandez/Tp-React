@@ -41,6 +41,7 @@
 }
 
 .detailsContainer {
+
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -59,6 +60,7 @@
 }
 
 .buttonsContainer {
+
   position: absolute;
   display: flex;
   bottom: 0;
@@ -99,8 +101,21 @@
   button {
     transform: scale(0.9);
   }
-
-  .buttonsContainer {
-    gap: 1px;
+  .detailsContainer {
+    font-size: 0.8rem;
   }
+  .title {
+    font-size: 0.85rem;
+  }
+  .ratingContainer {
+    font-size: 0.85rem;
+  }
+  .starIcon {
+    transform: scale(0.8);
+  }
+  .buttonsContainer {
+    gap: 0;
+    padding-right: 5px;
+  }
+
 }

@@ -1,45 +1,92 @@
+/* Estilo general para todos los botones */
 button {
   display: flex;
   align-items: center;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  justify-content: center;
+  padding: 6px;
+  margin-left: 0.3rem;
+  border: none;
   border-radius: 10px;
+  background: none;
+  color: var(--contrast-color);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
+button:hover {
+  transform: scale(1.1);
+}
+
+/* Íconos SVG dentro de botones */
+button svg {
+  stroke: aliceblue;
+}
+
+/* Botón de estado (bookmark u otro ícono en esquina superior) */
 .buttonState {
-  transform: scale(1.3);
-  margin-right: 0.5em;
-  display: flex;
-  align-items: center;
-  background: rgba(0, 0, 0, 0);
-  border: none;
   position: absolute;
   top: -45px;
   right: 0;
+  transform: scale(1.3);
+  margin-right: 0.5em;
+  background: transparent;
+}
+
+.buttonState svg {
+  fill: transparent;
+  stroke: var(--text);
+  stroke-width: 1.5px;
+}
+
+.buttonState:hover svg {
+  fill: var(--contrast-color);
 }
 
 .buttonDelete {
   background-color: rgba(196, 10, 10, 0.513);
-  cursor: pointer;
 }
 
 .buttonDelete:hover {
   background-color: rgb(150, 2, 2);
 }
 
-.buttonState svg {
-  cursor: pointer;
-  fill: rgba(147, 147, 147, 0);
-  stroke: rgb(12, 12, 12);
-  stroke-width: 1.5px;
-}
-
-.buttonState:hover svg {
-  cursor: pointer;
-  fill: rgb(255, 255, 255);
-  stroke-width: 1.5px;
-}
-
+/* Botón expandir (azul suave) */
 .buttonExpand {
-  cursor: pointer;
+  background-color: #4a91e274;
 }
+
+.buttonExpand:hover {
+  background-color: #33659e;
+}
+
+.buttonEdit {
+  background-color: #f5c54277;
+}
+
+.buttonEdit:hover {
+  background-color: #d4aa15c4;
+}
+
+.buttonAgregar {
+  background: var(--gradient-color);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 20px;
+  padding: 12px 24px;
+  transition: all 0.2s ease-in-out;
+}
+
+.buttonFiltros {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 15px;
+  background: #1f1f1f;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+

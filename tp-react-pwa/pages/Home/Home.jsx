@@ -2,24 +2,17 @@ import styles from "./Home.module.css";
 import List from "../../Components/List/List";
 import Nav from "../../Components/Nav/Nav";
 import Modal from "../../Components/Modal/Modal";
-import ModalAddMovie from "../../Components/ModalAddMovie/ModalAddMovie";
-import ModalDeleteMovie from "../../Components/ModalDeleteMovie/ModalDeleteMovie";
-import ModalVerMedia from "../../Components/ModalVerMedia/ModalVerMedia";
 import GenreCounter from "../../Components/Counter/GenreCounter/GenreCounter";
 import Aside from "../../Components/Aside/Aside"
 import RenderModalContent from "../../Components/RenderModalContent/RenderModalContent"
 import { useState, useEffect } from "react";
 
-
-
 const Home = () => {
   // Aside
   const [showAside, setShowAside] = useState(false);
   const toggleAside = () => {
-
     setShowAside(!showAside);
   }
-  
 
   // Modal
   const [showModal, setShowModal] = useState(false);
@@ -37,7 +30,6 @@ const Home = () => {
     url: "",
   });
 
-
   // Input SearchMovie
   const [search, setSearch] = useState('')
   //const [searchParam, setSearchParam] = useState('')
@@ -51,8 +43,6 @@ const Home = () => {
   const handleFilterChange = (newFilters) => {
     setFilters({ ...filters, ...newFilters });
   };
-
-
 
   const getFilteredList = (list) => {
     let filtered = list
@@ -73,26 +63,12 @@ const Home = () => {
         sort.order === "asc" ? a.rating - b.rating : b.rating - a.rating
       );
     }
-
     return filtered;
   };
 
   const handleSortChange = (newSort) => {
     setSort(newSort);
   };
-  /*const getFilteredList = (list) => {
-
-    if (search.trim() === "") {
-      return list; // Si no hay búsqueda, devuelve la lista completa
-    }
-    return list.filter((item) =>
-      item.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || item.director.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-    );
-  };*/
-
-  // MODAL
-
-
 
   // Abrir modal
   const Agregar = () => {
@@ -109,7 +85,7 @@ const Home = () => {
     setModalType("addMovie");
     setShowModal(true);
   };
-  
+
 
   const deleteMediaItem = (item) => {
     setMediaItem(item)
@@ -124,19 +100,19 @@ const Home = () => {
   }
 
   const changeStateMedia = (item) => {
-    let updatedItem = {...item, isSeen: !item.isSeen}
+    let updatedItem = { ...item, isSeen: !item.isSeen }
     let nuevaListaPorVer = listaPorVer.filter((i) => i.id !== item.id);
     let nuevaListaVistas = listaVistas.filter((i) => i.id !== item.id);
-  
+
     if (updatedItem.isSeen) {
       nuevaListaVistas = [...nuevaListaVistas, updatedItem];
     } else {
       nuevaListaPorVer = [...nuevaListaPorVer, updatedItem];
     }
-  
+
     setListaPorVer(nuevaListaPorVer);
     setListaVistas(nuevaListaVistas);
-  
+
     localStorage.setItem("listaPorVer", JSON.stringify(nuevaListaPorVer));
     localStorage.setItem("listaVistas", JSON.stringify(nuevaListaVistas));
   };
@@ -147,13 +123,9 @@ const Home = () => {
     setShowModal(true);
   };
 
-  // Render contenido del modal
- 
-
-
   const actions = {
     Agregar: Agregar,
-    Buscar: setSearch,
+    Search: setSearch,
     Filtros: toggleAside,
     Expand: verMedia,
     State: changeStateMedia,
@@ -161,15 +133,56 @@ const Home = () => {
     Edit: handleEdit,
   }
 
-   
-  
   // Cargar datos de localStorage
   useEffect(() => {
+    if (!localStorage.getItem("listaPorVer") && !localStorage.getItem("listaVistas")) {
+      const demoPorVer = [
+        {
+          title: "Pacific Rim",
+          director: "Guillermo del Toro",
+          year: "2013",
+          genre: "Ciencia Ficción",
+          rating: "4",
+          type: "Película",
+          isSeen: false,
+          url: "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p9360990_p_v12_at.jpg",
+          id: crypto.randomUUID(),
+        }
+      ];
+  
+      const demoVistas = [
+        {
+          title: "Terminator",
+          director: "James Cameron",
+          year: "1985",
+          genre: "Ciencia Ficción",
+          rating: "5",
+          type: "Película",
+          isSeen: true,
+          url: "https://es.web.img3.acsta.net/pictures/16/02/12/15/14/218373.jpg",
+          id: crypto.randomUUID(),
+        },
+        {
+          title: "The Wolf of Wall Street",
+          director: "Martin Scorsese",
+          year: "2013",
+          genre: "Comedia",
+          rating: "5",
+          type: "Película",
+          isSeen: true,
+          url: "https://m.media-amazon.com/images/M/MV5BMjIxMjgxNTk0MF5BMl5BanBnXkFtZTgwNjIyOTg2MDE@._V1_.jpg",
+          id: crypto.randomUUID(),
+        }
+      ];
+  
+      localStorage.setItem("listaPorVer", JSON.stringify(demoPorVer));
+      localStorage.setItem("listaVistas", JSON.stringify(demoVistas));
+    }
     const peliculasVistas = (JSON.parse(localStorage.getItem("listaVistas")) || [])
       .filter(item => item.title && item.director);
     const peliculasPorVer = (JSON.parse(localStorage.getItem("listaPorVer")) || [])
       .filter(item => item.title && item.director);
-      
+
     setListaVistas(peliculasVistas);
     setListaPorVer(peliculasPorVer);
   }, []);
@@ -181,7 +194,7 @@ const Home = () => {
       if (!mediaItem.title.trim()) return;
       const newMediaItem = {
         ...mediaItem,
-        id: crypto.randomUUID() // esto genera un id único automáticamente
+        id: crypto.randomUUID()
       };
 
       if (!mediaItem.isSeen) {
@@ -221,7 +234,7 @@ const Home = () => {
     setShowModal(false);
   };
 
-    const handleEditSubmit = () => {
+  const handleEditSubmit = () => {
     if (!mediaItem.title.trim()) return;
 
     const targetList = mediaItem.isSeen ? listaVistas : listaPorVer;
@@ -252,20 +265,18 @@ const Home = () => {
     <div className={styles.mainContainer}>
       {showModal && (
         <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-          <RenderModalContent handleSubmit={handleSubmit} mediaItem={mediaItem} setMediaItem={setMediaItem} handleEditSubmit={handleEditSubmit} modalType={modalType}/>
+          <RenderModalContent handleSubmit={handleSubmit} mediaItem={mediaItem} setMediaItem={setMediaItem} handleEditSubmit={handleEditSubmit} modalType={modalType} />
         </Modal>
       )}
-
       <div className={styles.navContainer}>
         <Nav actions={actions} />
-          
       </div>
       <div className={styles.counterContainer}>
         <GenreCounter list1={listaPorVer} list2={listaVistas} />
       </div>
       <div className={styles.mainGrid}>
         <div className={styles.listContainer}>
-          {/* <List title="Por ver" array={listaPorVer} /> */}
+
           <List
             title="Por ver"
             array={getFilteredList(listaPorVer)}
@@ -279,18 +290,14 @@ const Home = () => {
             actions={actions}
           />
 
-            
-            {showAside && (
-
-              <Aside
+          {showAside && (
+            <Aside
               onFilterChange={handleFilterChange}
               onSortChange={handleSortChange}
               setFilters={setFilters}
-              filters ={filters}
-
-              />
-
-            )}
+              filters={filters}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -1,27 +1,54 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  padding: 0;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --select-arrow: url('/arrow-down-light.svg');
+  --border-radius: 12px;
+  --shadow-light: 0 2px 5px rgba(0, 0, 0, 0.15);
+  --shadow-heavy: 0 4px 10px rgba(0, 0, 0, 0.25);
+  --input-bg: #333;
+  --input-color: #fff;
+  --card-bg: var(--secondary-color);
+  --card-shadow: var(--shadow-light);
+  --btn-radius: 8px;
+  --transition: all 0.3s ease-in-out;
+  --list-bg: #454545;
+  --base: #f5f3f5;
+  --text: #1b2021;
+  --contrast-base: #302b27;
+  --contrast-color: #f5f3f5;
+  --primary-color: #8d0801;
+  --secondary-color: #bf0603;
+  --select-arrow: url('/arrow-down-light.svg');
+  --gradient-color: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  --card-shadow: 10px 10px 0 rgba(191, 6, 3, 0.4);
+  --list-bg: #d4d4d4;
+  
 }
 
-@media (prefers-color-scheme: light) {
+html {
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    --base: #1b2021;
+    --text: #f9f9f9;
+    --contrast-base: #6d6d6d;
+    --primary-color: #99170d;
+    --secondary-color: #950401;
+    --select-arrow: url('/arrow-down-dark.svg');
+    --gradient-color: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --card-shadow: 10px 10px 0 var(--secondary-color);
+    --list-bg: #454545;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+}
+
+body {
+  background-color: var(--base);
+  color: var(--text);
+  font-family: inherit;
+  transition: var(--transition);
 }

@@ -1,12 +1,17 @@
 .list{
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.297);
+    box-shadow: var(--card-shadow);
+    background-color: var(--list-bg);
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding: 0.5rem;
     width: 95%;
-    border: 2px solid black;
     border-radius: 15px;
     margin: 5px;
     text-align: center;
+}
+
+.counter {
+    display: grid;
+    grid-template-columns: 20px 1fr;
 }

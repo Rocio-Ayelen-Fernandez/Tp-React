@@ -1,4 +1,5 @@
 .container{
+    margin: 1rem 0rem 0rem 0rem;
     display:flex;
     justify-content: center;
     align-items: center;
@@ -6,9 +7,16 @@
 }
 
 .genreContainer{
-    width: auto;
-    border: solid 1px black;
-    border-radius: 5px;
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--contrast-color);
+    border-radius: 12px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-right: 0.5rem;
+    box-shadow: var(--shadow-light);
+    transition: background-color 0.3s ease;
 }
 .genreContainer h5{
     margin: 0rem 1rem 0rem 1rem;

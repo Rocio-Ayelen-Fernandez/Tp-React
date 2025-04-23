@@ -1,14 +1,15 @@
-.navContainer{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 5px solid #292929;
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
 }
 
-.componentAgregar {
-    font-family
-    :Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: 700;
-    font-size: larger;
+@media screen and (max-width: 768px) {
+    .navContainer {
+        padding: 0;
+    }
+    button, button:hover {
+        transform: scale(0.8);
+    }
 }

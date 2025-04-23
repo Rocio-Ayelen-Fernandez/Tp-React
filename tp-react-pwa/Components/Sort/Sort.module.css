@@ -1,0 +1,39 @@
+.sortGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sortRow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sortLabel {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.sortSelect {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #444;
+  color: white;
+  font-size: 0.95rem;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background-image: var(--select-arrow);
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.sortSelect:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #cc99ff;
+}

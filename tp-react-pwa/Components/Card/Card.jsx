@@ -45,9 +45,6 @@ const Card = ({ mediaItem, actions }) => {
             <div className={styles.buttonsContainer}>
                 {/* Renderiza los botones del array */}
                 {buttons.map((button, index) => (
-
-                    
-
                     <Button 
                         key={index} 
                         name={button.name} 

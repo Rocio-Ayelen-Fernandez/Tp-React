@@ -27,7 +27,7 @@ const ModalAddMovie = ({ mediaItem, setMediaItem, onSubmit, title, buttonText })
       options: ["Película", "Serie"],
       placeholder: "Seleccionar tipo",
     },
-    {name: "url", placeholder: "URL de la imagen", type: "text"},
+    { name: "url", placeholder: "URL de la imagen", type: "text" },
   ];
 
   const handleChange = (e) => {
@@ -38,17 +38,17 @@ const ModalAddMovie = ({ mediaItem, setMediaItem, onSubmit, title, buttonText })
     }));
   };
   const isFormValid = () => {
-    
+
     let errorMessage = ""
     for (const field of fields) {
       const value = mediaItem[field.name];
       if (!value || (field.type === "number" && isNaN(value))) {
         errorMessage = `El campo ${field.placeholder} es obligatorio.`;
-        
+
       }
       if (field.name === "rating" && (value < 0 || value > 5)) {
         errorMessage = `El campo ${field.placeholder} debe estar entre 0 y 5.`;
-        
+
       }
       if (field.name === "year" && (value < 1800 || value > new Date().getFullYear())) {
         errorMessage = `El campo ${field.placeholder} debe estar entre 1800 y ${new Date().getFullYear()}.`;
@@ -78,6 +78,7 @@ const ModalAddMovie = ({ mediaItem, setMediaItem, onSubmit, title, buttonText })
               name={field.name}
               value={mediaItem[field.name] || ""}
               onChange={handleChange}
+              className={styles.modalInput} // <-- clase aquí
             >
               <option value="">{field.placeholder}</option>
               {field.options.map((opt) => (
@@ -96,9 +97,11 @@ const ModalAddMovie = ({ mediaItem, setMediaItem, onSubmit, title, buttonText })
               min={field.min}
               max={field.max}
               onChange={handleChange}
+              className={styles.modalInput} // <-- clase aquí también
             />
           )
         )}
+
       </div>
 
       <label className={styles.modalCheckbox}>

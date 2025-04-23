@@ -1,36 +1,45 @@
+import styles from './Sort.module.css'
 import { useState } from "react";
 
-const Sort = ({onSortChange}) =>{
-    const [sortBy, setSortBy] = useState('');
+const Sort = ({ onSortChange }) => {
+  const [sortBy, setSortBy] = useState('');
   const [order, setOrder] = useState('');
+
   const handleSortByChange = (e) => {
-    setSortBy(e.target.value);
-    onSortChange({ sortBy: e.target.value, order });
+    const value = e.target.value;
+    setSortBy(value);
+    onSortChange({ sortBy: value, order });
   };
 
   const handleOrderChange = (e) => {
-    setOrder(e.target.value);
-    onSortChange({ sortBy, order: e.target.value });
+    const value = e.target.value;
+    setOrder(value);
+    onSortChange({ sortBy, order: value });
   };
 
-    return(
-        <div>
-        <h4>Ordenar por:</h4>
-        <label>
-        Ordenar por:
-          <select value={sortBy} onChange={handleSortByChange}>
-            <option value="year">Año</option>
-            <option value="rating">Rating</option>
-          </select>
-        </label>
-        <label>
-          Orden:
-          <select value={order} onChange={handleOrderChange}>
-            <option value="asc">Ascendente</option>
-            <option value="desc">Descendente</option>
-          </select>
-        </label>
+  return (
+    <div className={styles.sortGroup}>
+      <div className={styles.sortRow}>
+        <h3>Filtros y Ordenamientos</h3>
+        <label htmlFor="sortBy" className={styles.sortLabel}>Criterio:</label>
+        <select id="sortBy" className={styles.sortSelect} value={sortBy} onChange={handleSortByChange}>
+          <option value="">Seleccionar</option>
+          <option value="year">Año</option>
+          <option value="rating">Rating</option>
+        </select>
       </div>
-    )
-}
-export default Sort
+
+      <div className={styles.sortRow}>
+        <label htmlFor="order" className={styles.sortLabel}>Orden:</label>
+        <select id="order" className={styles.sortSelect} value={order} onChange={handleOrderChange}>
+          <option value="">Seleccionar</option>
+          <option value="asc">Ascendente</option>
+          <option value="desc">Descendente</option>
+        </select>
+      </div>
+    </div>
+
+  );
+};
+
+export default Sort;

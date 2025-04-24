@@ -52,7 +52,7 @@ npm run dev
 
 La aplicación incluye varias funcionalidades para gestionar películas y series. Al iniciar, se muestran 3 películas por defecto para que puedas probar la aplicación. 
 
-![Captura de pantalla 2025-04-23 220251](https://github.com/user-attachments/assets/20765394-fe6a-4fa3-b4fa-7478c9e295a1)
+<img src="https://github.com/user-attachments/assets/20765394-fe6a-4fa3-b4fa-7478c9e295a1" width="400" />
 
 Puedes agregar nuevas películas o series proporcionando detalles como título, director, año, género, calificación, e imagen.
 

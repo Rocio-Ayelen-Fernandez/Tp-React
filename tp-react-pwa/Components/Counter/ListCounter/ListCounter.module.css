@@ -1,6 +1,7 @@
 .container{
     background-color: var(--primary-color);
-    color: var(--contrast-color);
+    color: white;
+    font-weight: 600;
     padding: 2px;
     width: 2rem;
     height: 2rem;

@@ -53,4 +53,6 @@ const Nav = ({actions}) => {
         </div>
     )
 }
+
+// {console.log("A:",[`component${name}`])}
 export default Nav

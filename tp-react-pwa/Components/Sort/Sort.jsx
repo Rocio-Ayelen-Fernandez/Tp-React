@@ -20,7 +20,7 @@ const Sort = ({ onSortChange }) => {
   return (
     <div className={styles.sortGroup}>
       <div className={styles.sortRow}>
-        <h3>Filtros y Ordenamientos</h3>
+        <h3>Ordenar Por:</h3>
         <label htmlFor="sortBy" className={styles.sortLabel}>Criterio:</label>
         <select id="sortBy" className={styles.sortSelect} value={sortBy} onChange={handleSortByChange}>
           <option value="">Seleccionar</option>

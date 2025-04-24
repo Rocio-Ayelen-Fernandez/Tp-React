@@ -26,7 +26,6 @@ const Filter = ({ onFilterChange, setFilters, filters }) => {
     <div className={styles.filterContainer}>
       <div className={styles.filterSection}>
         <h4>Filtrar por</h4>
-
         <label className={styles.filterLabel}>Género</label>
         <select className={styles.filterSelect} value={genre} onChange={handleGenreChange}>
           <option value="">Todas</option>

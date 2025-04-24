@@ -15,6 +15,7 @@ const RenderModalContent = ({handleSubmit, mediaItem, setMediaItem, handleEditSu
     const commonProps = {
       mediaItem,
       setMediaItem,
+      modalType,
     } //Poner los props acá (?)
     if (modalType === "addMovie") {
 

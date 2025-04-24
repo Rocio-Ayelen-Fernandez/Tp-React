@@ -1,13 +1,11 @@
 .filterSection {
   margin-bottom: 20px;
 }
-
 .filterLabel {
   display: block;
   margin: 8px 0 4px;
   font-weight: 600;
 }
-
 .filterSelect {
   cursor: pointer;
   width: 100%;
@@ -16,7 +14,7 @@
   border: none;
   background-color: #444;
   color: white;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
 }
 
 .filterSelect:focus {
@@ -25,6 +23,7 @@
 }
 
 .resetButton {
+  margin-bottom: 10px;
   background: var(--gradient-color);
   color: white;
   border: none;

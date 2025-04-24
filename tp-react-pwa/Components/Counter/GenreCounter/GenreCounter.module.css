@@ -9,7 +9,7 @@
 .genreContainer{
     display: inline-block;
     background-color: var(--primary-color);
-    color: var(--contrast-color);
+    color: white;
     border-radius: 12px;
     padding: 0.3rem 0.75rem;
     font-size: 0.85rem;

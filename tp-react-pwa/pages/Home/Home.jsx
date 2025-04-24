@@ -268,6 +268,9 @@ const Home = () => {
           <RenderModalContent handleSubmit={handleSubmit} mediaItem={mediaItem} setMediaItem={setMediaItem} handleEditSubmit={handleEditSubmit} modalType={modalType} />
         </Modal>
       )}
+      <div className={styles.logoContainer}>
+        <div className={styles.logo}></div>
+      </div>
       <div className={styles.navContainer}>
         <Nav actions={actions} />
       </div>

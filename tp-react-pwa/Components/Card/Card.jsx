@@ -1,25 +1,25 @@
-import { Star } from 'lucide-react'
+import { EyeClosed, Star } from 'lucide-react'
 import Button from '../Button/Button'
 import styles from './Card.module.css'
-import {  Trash2, BookmarkCheck, Expand, BookmarkX, SquarePen } from 'lucide-react';
+import { Trash2, BookmarkCheck, Expand, BookmarkX, SquarePen } from 'lucide-react';
 
 
 
 const buttons = [
     { name: "Expand", icon: <Expand />, type: "Button" },
     {
-      name: "State",
-      icon: (item) =>
-        item.isSeen ? (
-          <BookmarkX />
-        ) : (
-          <BookmarkCheck />
-        ),
-      type: "Button"
+        name: "State",
+        icon: (item) =>
+            item.isSeen ? (
+                <BookmarkX />
+            ) : (
+                <BookmarkCheck />
+            ),
+        type: "Button"
     },
     { name: "Delete", icon: <Trash2 />, type: "Button" },
-    { name: "Edit",  type: "Button", icon: <SquarePen /> },
-  ];
+    { name: "Edit", type: "Button", icon: <SquarePen /> },
+];
 
 
 //Array de botones
@@ -34,29 +34,37 @@ const Card = ({ mediaItem, actions }) => {
                     <p className={styles.title}>{mediaItem.title}</p>
                     <p><b>Director:</b> {mediaItem.director}</p>
                     <div className={styles.ratingContainer}>
-                        <div>
-                            {Array(5).fill().map((_, index) => (<Star className={index < Number(mediaItem.rating) ? styles.starIcon : ''} key={index}></Star>))}
-                        </div>
-                        <b>{mediaItem.rating}</b>
+                        {mediaItem.isSeen ? (
+                            <>
+                                <div>
+                                    {Array(5).fill().map((_, index) => (
+                                        <Star
+                                            className={index < Number(mediaItem.rating) ? styles.starIcon : ''}
+                                            key={index}
+                                        />
+                                    ))}
+                                </div>
+                                <b>{mediaItem.rating}</b>
+                            </>
+                        ) : (
+                            <p className={styles.notSeen}><EyeClosed/></p>
+                        )}
                     </div>
-
                 </div>
             </div>
             <div className={styles.buttonsContainer}>
                 {/* Renderiza los botones del array */}
                 {buttons.map((button, index) => (
-                    <Button 
-                        key={index} 
-                        name={button.name} 
+                    <Button
+                        key={index}
+                        name={button.name}
                         onclick={() => actions[button.name](mediaItem)}
                         className={styles[`button${button.name}`]}>
-                        
+
                         {typeof button.icon === 'function' ? button.icon(mediaItem) : button.icon}
                     </Button>
                 ))}
-
             </div>
-
         </article>
     )
 }

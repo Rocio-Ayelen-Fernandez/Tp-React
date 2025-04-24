@@ -3,9 +3,9 @@
 
 # Integrantes
 
-- Celayes Brisa
-- Fernandez Rocio
-- Russo Florencia
+- Celayes Brisa [FAI-4923]
+- Fernandez Rocio [FAI-4123]
+- Russo Florencia [FAI-4911] 
 
 # Archivos iniciales
 
@@ -47,3 +47,33 @@ Para iniciar el servidor de desarrollo usa el siguiente comando
 ```bash
 npm run dev
 ```
+
+# Modo de uso
+
+La aplicación incluye varias funcionalidades para gestionar películas y series. Al iniciar, se muestran 3 películas por defecto para que puedas probar la aplicación. 
+
+<img src="https://github.com/user-attachments/assets/20765394-fe6a-4fa3-b4fa-7478c9e295a1" width="400" />
+
+Puedes agregar nuevas películas o series proporcionando detalles como título, director, año, género, calificación, e imagen.
+
+![8mb video-hpG-ZXsoUCRp](https://github.com/user-attachments/assets/d3c8c1ad-2257-4f48-8968-c04ea72c50b6)
+
+Es posible ver los detalles de cada película o serie haciendo clic en ellas.
+
+![Grabación de pantalla 2025-04-23 215733](https://github.com/user-attachments/assets/c0c17784-50bd-43e0-88fd-cca3c33dfbcb)
+
+La aplicación permite aplicar filtros para buscar películas o series según género, tipo o calificación. 
+
+![8mb video-qdE-LAX8Qu6J](https://github.com/user-attachments/assets/2005ae1f-813a-4f44-b2f8-278cdeffe8f9)
+
+Si necesitas realizar cambios, puedes modificar los detalles de una película o serie existente. 
+
+![Grabación de pantalla 2025-04-23 215911](https://github.com/user-attachments/assets/e498ce77-aa67-47e1-96fd-067de4782035)
+
+Se puede mover elementos entre las listas "Por ver" y "Vistas" según su estado.
+
+![Grabación 2025-04-23 221041](https://github.com/user-attachments/assets/6aa15a8d-e880-4628-a95e-38f7b453247e)
+
+Si ya no necesitas una película o serie, puedes eliminarla fácilmente. 
+
+![Grabación 2025-04-23 235420](https://github.com/user-attachments/assets/9ced5f27-033d-422c-97d0-7444590e4ed8)

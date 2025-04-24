@@ -47,3 +47,20 @@ Para iniciar el servidor de desarrollo usa el siguiente comando
 ```bash
 npm run dev
 ```
+
+# Modo de uso
+
+La aplicación incluye varias funcionalidades para gestionar películas y series. Al iniciar, se muestran 3 películas por defecto para que puedas probar la aplicación. 
+
+Puedes agregar nuevas películas o series proporcionando detalles como título, director, año, género, calificación, e imagen.
+
+Es posible ver los detalles de cada película o serie haciendo clic en ellas.
+
+La aplicación permite aplicar filtros para buscar películas o series según género, tipo o calificación. 
+
+Si necesitas realizar cambios, puedes modificar los detalles de una película o serie existente. 
+
+Si ya no necesitas una película o serie, puedes eliminarla fácilmente. 
+
+Se puede mover elementos entre las listas "Por ver" y "Vistas" según su estado.
+

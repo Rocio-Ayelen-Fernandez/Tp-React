@@ -10,6 +10,8 @@ import ModalVerMedia from "../ModalVerMedia/ModalVerMedia";
     // agregar más tipos acá
   };
 
+  //Muy bueno este componente, ayuda a organizar.
+
 const RenderModalContent = ({handleSubmit, mediaItem, setMediaItem, handleEditSubmit, modalType}) => {
     const ModalContent = modalContentMap[modalType];
     const commonProps = {

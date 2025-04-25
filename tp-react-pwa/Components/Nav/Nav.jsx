@@ -22,6 +22,8 @@ const Nav = ({actions}) => {
         Search: (action) => ({ setSearch: action }),
     };
 
+    //borrar codigo que no usan y esta comentado
+
     //Modal
     // const [showModal, setShowModal] = useState(false)
 
@@ -53,6 +55,8 @@ const Nav = ({actions}) => {
         </div>
     )
 }
+
+//borrar antes de entregar
 
 // {console.log("A:",[`component${name}`])}
 export default Nav

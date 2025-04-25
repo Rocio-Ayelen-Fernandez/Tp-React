@@ -27,7 +27,7 @@ const Home = () => {
     rating: "",
     type: "",
     isSeen: false,
-    url: "",
+    url: "", //aca usan url y en otros lados img
   });
 
   // Input SearchMovie
@@ -221,6 +221,7 @@ const Home = () => {
       localStorage.setItem("listaPorVer", JSON.stringify(nuevaListaPorVer));
       localStorage.setItem("listaVistas", JSON.stringify(nuevaListaVistas));
     }
+    //Esto podria ser una funcion asi reutilizar dado que lo usan en otro lugar tambien
     setMediaItem({
       title: "",
       director: "",
@@ -257,7 +258,7 @@ const Home = () => {
       rating: "",
       type: "",
       isSeen: false,
-      img: "",
+      img: "", //Ojo que aca usan img y en otros lados url
     });
   }
 

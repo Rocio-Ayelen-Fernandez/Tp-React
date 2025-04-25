@@ -32,11 +32,13 @@ const Card = ({ mediaItem, actions }) => {
                 </div>
                 <div className={styles.detailsContainer}>
                     <p className={styles.title}>{mediaItem.title}</p>
+                    {/* es necesario el p si tienen b? */}
                     <p><b>Director:</b> {mediaItem.director}</p>
                     <div className={styles.ratingContainer}>
                         {mediaItem.isSeen ? (
                             <>
                                 <div>
+                                    {/* buena repetitiva aca! */}
                                     {Array(5).fill().map((_, index) => (
                                         <Star
                                             className={index < Number(mediaItem.rating) ? styles.starIcon : ''}

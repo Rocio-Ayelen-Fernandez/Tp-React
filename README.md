@@ -1,3 +1,18 @@
+Correcciones:
+- Excelente calidad de codigo, se nota muy profesional. Se autodocumenta con el buen nombrado y buena responsabilidad de componentes. 
+- Estructura del proyecto clara y prolija. Archivos pequenos con buena division de responsabilidades. Componentes muy bien encapsulados.
+- Buen uso de filtros y funciones para filtrar.
+- persistencia efectiva con localStorage.
+- los forms validados suman un monton y no se pedia.
+
+
+Observaciones / cosas a mejorar:
+- Las carpetas pages y components deben ir si o si dentro de src
+- Borren codigo comentado antes de entregar
+
+Nota: 10.
+
+
 
 # [Probar en Vercel](https://tp-react-mu.vercel.app/)
 

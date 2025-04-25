@@ -4,6 +4,7 @@ import { useState } from "react";
 
 const ModalAddMovie = ({ mediaItem, setMediaItem, onSubmit, title, buttonText, modalType }) => {
   const [error, setError] = useState("");
+ //este const puede ir en la linea 4, por fuera de la funcion del componente para mayor velocidad de renderizado
   const fields = [
     { name: "title", placeholder: "Título", type: "text" },
     { name: "director", placeholder: "Director", type: "text" },

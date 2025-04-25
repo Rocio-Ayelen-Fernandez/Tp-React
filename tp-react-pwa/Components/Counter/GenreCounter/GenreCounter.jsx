@@ -1,5 +1,6 @@
 import styles from './GenreCounter.module.css'
 
+//En vez de list1, list2 le pondria nombres de que se espera en estas listas. Es menos generico, pero ayudaria a autodocumentar.
 const GenreCounter = ({ list1,list2 }) => {
 
     const mergedList = [...list1, ...list2];
